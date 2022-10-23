@@ -6,9 +6,7 @@
 
 <div align="center">
 
-[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/)
-
-[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
+[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/) [![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
 </div>
 
 ---
@@ -16,8 +14,8 @@
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Contents](#contents)
-- [Contributing](../CONTRIBUTING.md)
+- [Nginx](#nginx)
+- [Resurces](#resources)
 
 ## About <a name = "about"></a>
 
@@ -27,7 +25,7 @@ This guide intends to Log my step by step  into deploying a multi-dockerized ser
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
 
-### NginX
+### Nginx
 -  __What you need to know about NginX:__ \
 Nginx is an open-source software, functioning initially as a web server, but it’s also used as a reverse proxy, HTTP cache, or a load balancer.\
 Nginx is a web server which stores html, js, images files and use http request to display a website. The default configuration file of Nginx is nginx.conf and Nginx conf documents will be used to config our server and the right proxy connexion.
