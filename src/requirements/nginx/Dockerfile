@@ -13,6 +13,7 @@ RUN mkdir  /etc/nginx/ssl
 # COPY ./conf/default /etc/nginx/sites-available
 COPY ./conf/default /etc/nginx/sites-available
 
+#Create the self signed SSL certificates and out them in your own files (place them in a new folder)
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 	-out /etc/nginx/ssl/mrojas-e.crt \
 	-keyout /etc/nginx/ssl/mrojas-e.key \

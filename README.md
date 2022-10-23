@@ -13,17 +13,63 @@
 ## 📝 Table of Contents
 
 - [About](#about)
+- [Suggestions](#sugestions)
 - [Getting Started](#getting_started)
+- [Straight to the point](#straight_to_the_point)
 - [Nginx](#nginx)
-- [Resurces](#resources)
+- [Resources](#resources)
 
-## About <a name = "about"></a>
+## 📓 About <a name = "about"></a>
 
-This guide intends to Log my step by step  into deploying a multi-dockerized server structure  using Nginx, Mariadb mysql, and Wordpress.
+Inception is a project about Docker containers, this will help expand knowledge about system administration and some Web development skills as well.\
+This guide intends to Log my step by step  into deploying a multi container website in Wordpress Nginx server, and  MariaDB.\
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+## 🤖 Suggestions
+
+[![forthebadge](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjQuNTUiIGhlaWdodD0iMzUiIHZpZXdCb3g9IjAgMCAxNjQuNTUgMzUiPjxyZWN0IGNsYXNzPSJzdmdfX3JlY3QiIHg9IjAiIHk9IjAiIHdpZHRoPSI2Ny40MiIgaGVpZ2h0PSIzNSIgZmlsbD0iIzMxQzRGMyIvPjxyZWN0IGNsYXNzPSJzdmdfX3JlY3QiIHg9IjY1LjQyIiB5PSIwIiB3aWR0aD0iOTkuMTMwMDAwMDAwMDAwMDEiIGhlaWdodD0iMzUiIGZpbGw9IiMzODlBRDUiLz48cGF0aCBjbGFzcz0ic3ZnX190ZXh0IiBkPSJNMTYuNjcgMjJMMTQuMjIgMjJMMTQuMjIgMTMuNDdMMTYuNzQgMTMuNDdRMTcuODcgMTMuNDcgMTguNzQgMTMuOTdRMTkuNjIgMTQuNDggMjAuMTAgMTUuNDBRMjAuNTggMTYuMzMgMjAuNTggMTcuNTJMMjAuNTggMTcuNTJMMjAuNTggMTcuOTVRMjAuNTggMTkuMTYgMjAuMTAgMjAuMDhRMTkuNjEgMjEuMDAgMTguNzIgMjEuNTBRMTcuODMgMjIgMTYuNjcgMjJMMTYuNjcgMjJaTTE1LjcwIDE0LjY2TDE1LjcwIDIwLjgyTDE2LjY3IDIwLjgyUTE3LjgzIDIwLjgyIDE4LjQ2IDIwLjA5UTE5LjA4IDE5LjM2IDE5LjA5IDE3Ljk5TDE5LjA5IDE3Ljk5TDE5LjA5IDE3LjUyUTE5LjA5IDE2LjEzIDE4LjQ5IDE1LjQwUTE3Ljg5IDE0LjY2IDE2Ljc0IDE0LjY2TDE2Ljc0IDE0LjY2TDE1LjcwIDE0LjY2Wk0yNC43OCAxOC4wMEwyNC43OCAxOC4wMEwyNC43OCAxNy41MlEyNC43OCAxNi4yOCAyNS4yMiAxNS4zMlEyNS42NiAxNC4zNyAyNi40NyAxMy44NlEyNy4yNyAxMy4zNSAyOC4zMSAxMy4zNVEyOS4zNiAxMy4zNSAzMC4xNiAxMy44NVEzMC45NyAxNC4zNSAzMS40MSAxNS4yOVEzMS44NSAxNi4yMyAzMS44NSAxNy40OEwzMS44NSAxNy40OEwzMS44NSAxNy45NlEzMS44NSAxOS4yMSAzMS40MiAyMC4xNlEzMC45OSAyMS4xMCAzMC4xOCAyMS42MVEyOS4zOCAyMi4xMiAyOC4zMyAyMi4xMkwyOC4zMyAyMi4xMlEyNy4yOSAyMi4xMiAyNi40OCAyMS42MVEyNS42NyAyMS4xMCAyNS4yMiAyMC4xN1EyNC43OCAxOS4yMyAyNC43OCAxOC4wMFpNMjYuMjYgMTcuNDZMMjYuMjYgMTcuOTZRMjYuMjYgMTkuMzYgMjYuODEgMjAuMTNRMjcuMzUgMjAuOTAgMjguMzMgMjAuOTBMMjguMzMgMjAuOTBRMjkuMzEgMjAuOTAgMjkuODQgMjAuMTVRMzAuMzcgMTkuNDAgMzAuMzcgMTcuOTZMMzAuMzcgMTcuOTZMMzAuMzcgMTcuNTFRMzAuMzcgMTYuMDkgMjkuODQgMTUuMzRRMjkuMzAgMTQuNTggMjguMzEgMTQuNThMMjguMzEgMTQuNThRMjcuMzUgMTQuNTggMjYuODEgMTUuMzNRMjYuMjcgMTYuMDkgMjYuMjYgMTcuNDZMMjYuMjYgMTcuNDZaTTM3LjgwIDIyTDM2LjMyIDIyTDM2LjMyIDEzLjQ3TDM3LjgwIDEzLjQ3TDQxLjYyIDE5LjU0TDQxLjYyIDEzLjQ3TDQzLjA5IDEzLjQ3TDQzLjA5IDIyTDQxLjYwIDIyTDM3LjgwIDE1Ljk1TDM3LjgwIDIyWk00OS41MSAxNC42Nkw0Ni44NyAxNC42Nkw0Ni44NyAxMy40N0w1My42NCAxMy40N0w1My42NCAxNC42Nkw1MC45OCAxNC42Nkw1MC45OCAyMkw0OS41MSAyMkw0OS41MSAxNC42NloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBjbGFzcz0ic3ZnX190ZXh0IiBkPSJNODEuOTkgMjJMNzkuNjEgMjJMNzkuNjEgMTMuNjBMODMuNDUgMTMuNjBRODQuNTkgMTMuNjAgODUuNDMgMTMuOThRODYuMjcgMTQuMzUgODYuNzMgMTUuMDZRODcuMTggMTUuNzYgODcuMTggMTYuNzFMODcuMTggMTYuNzFRODcuMTggMTcuNjYgODYuNzMgMTguMzVRODYuMjcgMTkuMDUgODUuNDMgMTkuNDJRODQuNTkgMTkuODAgODMuNDUgMTkuODBMODMuNDUgMTkuODBMODEuOTkgMTkuODBMODEuOTkgMjJaTTgxLjk5IDE1LjQ3TDgxLjk5IDE3LjkzTDgzLjMxIDE3LjkzUTg0LjA0IDE3LjkzIDg0LjQxIDE3LjYxUTg0Ljc4IDE3LjI5IDg0Ljc4IDE2LjcxTDg0Ljc4IDE2LjcxUTg0Ljc4IDE2LjEyIDg0LjQxIDE1LjgwUTg0LjA0IDE1LjQ3IDgzLjMxIDE1LjQ3TDgzLjMxIDE1LjQ3TDgxLjk5IDE1LjQ3Wk05My4zNSAyMkw5MC45MyAyMkw5NC42NCAxMy42MEw5Ni45OCAxMy42MEwxMDAuNzAgMjJMOTguMjMgMjJMOTcuNTcgMjAuMzdMOTQuMDIgMjAuMzdMOTMuMzUgMjJaTTk1Ljc5IDE1LjkzTDk0LjcxIDE4LjYxTDk2Ljg3IDE4LjYxTDk1Ljc5IDE1LjkzWk0xMDcuMTggMjJMMTA0Ljg1IDIyTDEwNC44NSAxMy42MEwxMDYuODEgMTMuNjBMMTEwLjUyIDE4LjA3TDExMC41MiAxMy42MEwxMTIuODQgMTMuNjBMMTEyLjg0IDIyTDExMC44OSAyMkwxMDcuMTggMTcuNTJMMTA3LjE4IDIyWk0xMjAuMzggMjJMMTE4LjAwIDIyTDExOC4wMCAxMy42MEwxMjAuMzggMTMuNjBMMTIwLjM4IDIyWk0xMjUuMTMgMTcuODBMMTI1LjEzIDE3LjgwUTEyNS4xMyAxNi41NCAxMjUuNzMgMTUuNTRRMTI2LjMyIDE0LjU1IDEyNy4zOCAxMy45OVExMjguNDMgMTMuNDMgMTI5Ljc1IDEzLjQzTDEyOS43NSAxMy40M1ExMzAuOTAgMTMuNDMgMTMxLjgyIDEzLjg0UTEzMi43NSAxNC4yNSAxMzMuMzYgMTUuMDJMMTMzLjM2IDE1LjAyTDEzMS44NSAxNi4zOVExMzEuMDQgMTUuNDAgMTI5Ljg3IDE1LjQwTDEyOS44NyAxNS40MFExMjkuMTggMTUuNDAgMTI4LjY1IDE1LjcwUTEyOC4xMiAxNiAxMjcuODIgMTYuNTRRMTI3LjUzIDE3LjA5IDEyNy41MyAxNy44MEwxMjcuNTMgMTcuODBRMTI3LjUzIDE4LjUxIDEyNy44MiAxOS4wNVExMjguMTIgMTkuNjAgMTI4LjY1IDE5LjkwUTEyOS4xOCAyMC4yMCAxMjkuODcgMjAuMjBMMTI5Ljg3IDIwLjIwUTEzMS4wNCAyMC4yMCAxMzEuODUgMTkuMjJMMTMxLjg1IDE5LjIyTDEzMy4zNiAyMC41OFExMzIuNzUgMjEuMzUgMTMxLjgzIDIxLjc2UTEzMC45MCAyMi4xNyAxMjkuNzUgMjIuMTdMMTI5Ljc1IDIyLjE3UTEyOC40MyAyMi4xNyAxMjcuMzggMjEuNjFRMTI2LjMyIDIxLjA1IDEyNS43MyAyMC4wNVExMjUuMTMgMTkuMDYgMTI1LjEzIDE3LjgwWk0xNDAuMjUgMjJMMTM3LjkwIDIyTDEzNy45MCAxMy42MEwxNDAuMjUgMTMuNjBMMTQwLjI1IDE3LjA5TDE0My41MCAxMy42MEwxNDYuMTIgMTMuNjBMMTQyLjY5IDE3LjMyTDE0Ni4zMCAyMkwxNDMuNTQgMjJMMTQxLjE0IDE4Ljk1TDE0MC4yNSAxOS45MEwxNDAuMjUgMjJaTTE1MC4wMSAyMC44NUwxNTAuMDEgMjAuODVRMTUwLjAxIDIwLjMxIDE1MC40MCAxOS45NlExNTAuNzggMTkuNjEgMTUxLjM4IDE5LjYxTDE1MS4zOCAxOS42MVExNTEuOTggMTkuNjEgMTUyLjM2IDE5Ljk2UTE1Mi43NCAyMC4zMSAxNTIuNzQgMjAuODVMMTUyLjc0IDIwLjg1UTE1Mi43NCAyMS4zNyAxNTIuMzUgMjEuNzRRMTUxLjk3IDIyLjExIDE1MS4zOCAyMi4xMUwxNTEuMzggMjIuMTFRMTUwLjc4IDIyLjExIDE1MC40MCAyMS43NFExNTAuMDEgMjEuMzggMTUwLjAxIDIwLjg1Wk0xNTAuNDcgMTguOTRMMTUwLjAzIDEzLjYwTDE1Mi43NCAxMy42MEwxNTIuMjggMTguOTRMMTUwLjQ3IDE4Ljk0WiIgZmlsbD0iI0ZGRkZGRiIgeD0iNzguNDIiLz48L3N2Zz4=)](https://forthebadge.com)
+
+
+This project carries a lot of diverse topics, and with them `A LOT of documentation, for that reason I created this guide, to have the [Resources](#resources) necessary for you to get some information about each topic and hopefully save some hours and avoid falling down the rabbit hole of material that one can find online. \
+as for the line of order for developing the project I want to suggest some points that helped me to not get lost and learn comfortably and move forward quicker. (this are tips that help me but are not necessary to follow, so feel free to find what its best for you  ✌🏼) 
+
+1. <u>Use a `SSH connection` </u> between your VM and your work station (___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extention   for __Visual Studio code__ called `Remote - SSH` . <br>
+
+	<img width=800px height=500px src="https://microsoft.github.io/vscode-remote-release/images/ssh-readme.gif" alt="Project logo"></a>
+
+	It will be easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
+	__Link for the extension:__
+https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
+
+2. <u>_Do ONE container at a time._</u> It will be easier to handle errors and to give order to the topics you will learn, the logic I followed was:
+	
+	- [Nginx](#nginx)\
+	Learn first how to launch a docker image && to execute this image without using docker-compose\
+    Learn How to display an html page on http://localhost:80"\
+    Learn how to display an html page with SSL on http://localhost:443"
+
+	- [WordPress+PHP](#wordpress)\
+	You can begin from here the docker-compose file, you don't need it before
+	- [MariaDB](#mariadb)
+	- [Bonus](#bonus)
 
 ## Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+<u>_Setting up a Virtual Machine_</u>
+
+The first step for this project is obviously to get your hands on a ```virtual machine``` with any Linux distribution. In this machine you will need to install ``` Docker && Docker-compose``` and setup the according ```sudo permissions``` necessary for your user to work.
+
+`sudo adduser user_name`
+
+`sudo usermod -aG sudo user_name`
+
+`sudo usermod -aG docker user_name`
+
+`sudo usermod -aG vboxsf user_name (if you use shared folders on your vm)`
+
+<u>_Get Familiar with Docker_</u>
+
+It will be important that you start getting familiar with Docker and with the syntax of Docker Files and of Docker-compose. this two files are basically the ```Core``` of your project.
 
 ### Nginx
 -  __What you need to know about NginX:__ \
@@ -94,7 +140,9 @@ In order to set the  TLS version we have to add  ___``` ssl_protocols TLSv1.2; `
 
 __DOCKER__
 
-- https://www.learnitguide.net/2018/06/dockerfile-explained-with-examples.html
+- https://www.learnitguide.net/2018/06/dockerfile-explained-with-examples.html \
+Using variables in Docker compose
+- https://betterprogramming.pub/using-variables-in-docker-compose-265a604c2006
 
 __NGINX__
 
