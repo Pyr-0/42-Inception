@@ -1,0 +1,13 @@
+
+
+
+
+
+
+services:
+  nginx:
+    build:
+      context: "./requirements/nginx"
+      dockerfile: Dockerfile.nginx
+    container_name: nginx
+  

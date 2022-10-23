@@ -1,0 +1,11 @@
+server {
+     # tells to listen to port 80 (http port)
+     listen 80;
+     # same but for IPV6
+     listen [::]:80;
+     # tells the name(s) of our website
+     server_name localhost www.localhost;
+     # will redirect us to https://$host$request_uri;
+     # when we try to reach the website name in our browser
+     return 301 https://$host$request_uri;
+ }
