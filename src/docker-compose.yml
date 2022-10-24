@@ -1,13 +1,41 @@
+# version '3.5'
 
+# networks:
+#   inception: {}
 
-
-
-
+# services:
+#   nginx:
+#     image: nginx
+#     container_name: nginx
+#     build: ./requirements/nginx
+#     networks: inception
+#     ports: 
+#       - 443:443
+#     restart: always
+version: '3'
 
 services:
   nginx:
-    build:
-      context: "./requirements/nginx"
-      dockerfile: Dockerfile.nginx
     container_name: nginx
-  
+    build: ./requirements/nginx
+    ports:
+      - 443:443
+    restart: always
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
+# #====MARIADB====
+
+#   mysql:
+#   image: mariadb
+#   volumes:
+#     - /data/mysql:/var/lib/mysql
+#   environment:
+#     MYSQL_ROOT_PASSWORD: mysql_root_pass
+#     MYSQL_DATABASE: db_name
+#     MYSQL_USER: user_name
+#     MYSQL_PASSWORD: user_pass
+#   restart: always

@@ -30,11 +30,10 @@ These instructions will get you a copy of the project up and running on your loc
 This project carries a lot of diverse topics, and with them `A LOT of documentation, for that reason I created this guide, to have the [Resources](#resources) necessary for you to get some information about each topic and hopefully save some hours and avoid falling down the rabbit hole of material that one can find online. \
 as for the line of order for developing the project I want to suggest some points that helped me to not get lost and learn comfortably and move forward quicker. (this are tips that help me but are not necessary to follow, so feel free to find what its best for you  ✌🏼) 
 
-1. <u>Use a `SSH connection` </u> between your VM and your work station (___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extention   for __Visual Studio code__ called `Remote - SSH` . <br>
+1. <u>Use a `SSH connection` </u> between your VM and your work station (___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extension   for __Visual Studio code__ called `Remote - SSH` . <br>
 
-![](https://microsoft.github.io/vscode-remote-release/images/ssh-readme.gif)	
 
-<!-- <img width=800px height=500px src="https://microsoft.github.io/vscode-remote-release/images/ssh-readme.gif" alt="Project logo"></a> -->
+<img width=800px height=500px src="https://microsoft.github.io/vscode-remote-release/images/ssh-readme.gif" alt="Project logo"></a>
 
 It will be easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
 	__Link for the extension:__
@@ -135,8 +134,21 @@ In order to set the  TLS version we have to add  ___``` ssl_protocols TLSv1.2; `
 
 	If you add a custom CMD in the Docker-file, be sure to include -g daemon off; in the CMD in order for nginx to stay in the foreground, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
 
+### MariaDB
+
+-  __What you need to know about MariaDB:__ \
+
+
+-  __Installation:__ \
+
+`sudo apt update
+sudo apt install mariadb-server
+sudo mysql_secure_installation`
+
 ## Resources <a name = "resources"></a>
 
+__GENERAL__
+- https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-20-04
 __DOCKER__
 
 - https://www.learnitguide.net/2018/06/dockerfile-explained-with-examples.html \
@@ -147,3 +159,7 @@ __NGINX__
 
 - http://nginx.org/en/docs/beginners_guide.html
 - https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
+
+__WORDPRESS__
+
+- https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose
