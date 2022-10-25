@@ -22,23 +22,19 @@
 ## 📓 About <a name = "about"></a>
 
 Inception is a project about Docker containers, this will help expand knowledge about system administration and some Web development skills as well.\
-\
-This project can also be understood under the name of <u>```LEMP Stack Deployment``` 
-<sup>[learn more](#lemp)</sup> </u> 
+This project can also be understood under the name of ```LEMP Stack Deployment``` <sup> [learn more](#lemp)</sup>  \
+which simply stands for Linux, NGINX (pronounced Engine X), MySQL, and PHP-FPM.
 
-A <mark>LEMP</mark> stack is the foundation upon which websites are built, leveraging NGINX instead of Apache as its web server. It is made up of four components that grant its name - Linux, NGINX (pronounced Engine X), MySQL, and PHP-FPM. Linux is the operating system, NGINX is the web server, MySQL is the database, and PHP-FPM interprets code to produce dynamic content. In this article, we will walk you through installing and configuring a basic LEMP stack.
-This guide intends to Log my step by step  into deploying a multi container website in Wordpress Nginx server, and  MariaDB.\
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.</k>
+## 🤖 Previous Suggestions
 
-
-## 🤖 Suggestions
-
-This project carries a lot of diverse topics, and with them `A LOT of documentation, for that reason I created this guide, to have the [Resources](#resources) necessary for you to get some information about each topic and hopefully save some hours and avoid falling down the rabbit hole of material that one can find online. \
+This project carries a lot of diverse topics, and with them `A LOT` of documentation, for that reason I created this guide, to have the [Resources](#resources) necessary for you to get some information about each topic and hopefully save some hours and avoid falling down the rabbit hole of material that one can find online. \
 as for the line of order for developing the project I want to suggest some points that helped me to not get lost and learn comfortably and move forward quicker. (this are tips that help me but are not necessary to follow, so feel free to find what its best for you  ✌🏼) 
 
 1. <u>Use a `SSH connection` </u> between your VM and your work station (___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extension  for __Visual Studio code__ called `Remote - SSH` . <br>
 
-<img width=700px height=500px src="https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif" ></a>
+<img src= "./markdown_img/ssh-readme.gif" >
+
+<!-- <img width=700px height=500px src="https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif" ></a> -->
 
 This will make it  easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
 	__Link for the extension:__
