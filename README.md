@@ -34,7 +34,7 @@ as for the line of order for developing the project I want to suggest some point
 
 <p align="center">
 
-![](https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif)
+![Alt text](https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif)
 <!-- <img width=700px height=500px src="https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif" ></a> -->
 
 It will be easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
