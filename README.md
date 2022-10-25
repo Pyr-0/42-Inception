@@ -158,7 +158,7 @@ sudo mysql_secure_installation`
 
 __GENERAL__ 
 
-<a name="lemp">1</a>: LEMP
+<a name="lemp">LEMP Stack deployment
 
 - https://www.digitalocean.com/community/tutorialshow-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-20-04
 
