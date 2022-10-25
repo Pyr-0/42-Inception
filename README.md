@@ -22,19 +22,25 @@
 ## 📓 About <a name = "about"></a>
 
 Inception is a project about Docker containers, this will help expand knowledge about system administration and some Web development skills as well.\
+\
+This project can also be understood under the name of <u>```LEMP Stack Deployment``` 
+<sup>[learn more](#lemp)</sup> </u> 
+
+A <mark>LEMP</mark> stack is the foundation upon which websites are built, leveraging NGINX instead of Apache as its web server. It is made up of four components that grant its name - Linux, NGINX (pronounced Engine X), MySQL, and PHP-FPM. Linux is the operating system, NGINX is the web server, MySQL is the database, and PHP-FPM interprets code to produce dynamic content. In this article, we will walk you through installing and configuring a basic LEMP stack.
 This guide intends to Log my step by step  into deploying a multi container website in Wordpress Nginx server, and  MariaDB.\
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.</k>
+
 
 ## 🤖 Suggestions
 
 This project carries a lot of diverse topics, and with them `A LOT of documentation, for that reason I created this guide, to have the [Resources](#resources) necessary for you to get some information about each topic and hopefully save some hours and avoid falling down the rabbit hole of material that one can find online. \
 as for the line of order for developing the project I want to suggest some points that helped me to not get lost and learn comfortably and move forward quicker. (this are tips that help me but are not necessary to follow, so feel free to find what its best for you  ✌🏼) 
 
-1. <u>Use a `SSH connection` </u> between your VM and your work station (___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extension   for __Visual Studio code__ called `Remote - SSH` . <br>
+1. <u>Use a `SSH connection` </u> between your VM and your work station (___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extension  for __Visual Studio code__ called `Remote - SSH` . <br>
 
-<img width=70px height=50px src="https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif" ></a>
+<img width=700px height=500px src="https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif" ></a>
 
-It will be easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
+This will make it  easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
 	__Link for the extension:__
 https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
 
@@ -49,6 +55,10 @@ https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
 	You can begin from here the docker-compose file, you don't need it before
 	- [MariaDB](#mariadb)
 	- [Bonus](#bonus)
+
+3. ___Check how other people solved this exercise___, there are many and very different ways to approach the tasks of the project, it all comes down to how each person learned to write in `bash` and on which OS they run their VM on, this will determine which commands differ from their syntax even if they do the same. (sounds basic, but many people with few experience in deep UNIX language might struggle with how this). Reading other peoples solution gives a relationship with what does and doesn't `THIS PROJECT` really needs and what is standard in the use of the technologies, packages and tools used and learned here. \
+\
+In short, if you don't know how to do something, see what others do, try to understand it and then write your approach.
 
 ## Getting Started <a name = "getting_started"></a>
 
@@ -146,16 +156,31 @@ sudo mysql_secure_installation`
 
 ## Resources <a name = "resources"></a>
 
-__GENERAL__
-- https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-20-04
-How to SSH into your VS code
+__GENERAL__ 
 
-- https://adamtheautomator.com/vs-code-remote-ssh/
+<a name="lemp">1</a>: LEMP
+
+- https://www.digitalocean.com/community/tutorialshow-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-20-04
+
+How to SSH into your VS code
+- https://adamtheautomator.com/vs-code-remote-ssh
+
+
+- https://adamtheautomator.com/vs-code-remote-ssh
+
 __DOCKER__
 
-- https://www.learnitguide.net/2018/06/dockerfile-explained-with-examples.html \
+Learn how to make a Docker-compose file
+- https://www.youtube.com/watch?v=DM65_JyGxCo 
+
+Learn about `Dockerfile` commands and Syntax
+- https://www.learnitguide.net/2018/06/dockerfile-explained-with-examples.html
+
 Using variables in Docker compose
-- https://betterprogramming.pub/using-variables-in-docker-compose-265a604c2006
+- https://betterprogramming.pub/using-variables-in-docker-compose-265a604c2006 
+
+Some more Docker knowledge 
+- https://blog.sourcerer.io/a-crash-course-on-docker-learn-to-swim-with-the-big-fish-6ff25e8958b0
 
 __NGINX__
 
@@ -165,3 +190,4 @@ __NGINX__
 __WORDPRESS__
 
 - https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose
+- https://www.cloudbooklet.com/install-wordpress-with-docker-compose-nginx-apache-with-ssl/
