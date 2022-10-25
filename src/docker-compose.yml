@@ -12,7 +12,7 @@
 #     ports: 
 #       - 443:443
 #     restart: always
-version: '3'
+version: '3.5'
 
 services:
   nginx:
