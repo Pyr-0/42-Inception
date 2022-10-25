@@ -32,10 +32,10 @@ as for the line of order for developing the project I want to suggest some point
 
 1. <u>Use a `SSH connection` </u> between your VM and your work station (___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extension   for __Visual Studio code__ called `Remote - SSH` . <br>
 
-<p align="center">
+![Alt Text](https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif)
 
-![Alt text](https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif)
-<!-- <img width=700px height=500px src="https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif" ></a> -->
+
+<img width=700px height=500px src="https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif" ></a>
 
 It will be easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
 	__Link for the extension:__
@@ -151,6 +151,9 @@ sudo mysql_secure_installation`
 
 __GENERAL__
 - https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-20-04
+How to SSH into your VS code
+
+- https://adamtheautomator.com/vs-code-remote-ssh/
 __DOCKER__
 
 - https://www.learnitguide.net/2018/06/dockerfile-explained-with-examples.html \
