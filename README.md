@@ -28,17 +28,21 @@ which simply stands for Linux, NGINX (pronounced Engine X), MySQL, and PHP-FPM.
 ## 🤖 Before you start: Suggestions <a name = "suggestions"></a>
 
 This project carries a lot of diverse topics, and with them <u>A LOT</u>  of documentation, for that reason I created this guide, to have the [Resources](#resources) necessary for you to get some information about each topic and hopefully save some hours and avoid falling down the rabbit hole of material that one can find online. \
-as for the line of order for developing the project I want to suggest some points that helped me to not get lost and learn comfortably and move forward quicker. (this are tips that help me but are not necessary to follow, so feel free to find what its best for you  ✌🏼) 
+For the order of the project I want to suggest some points that helped me to not get lost, learn comfortably and move forward quicker.\
+\
+(this are tips that help me but are not necessary to follow, so feel free to find what its best for you, ___this is not a copy-paste guide so you will still have to figure some things out__ ✌🏼) 
 
-1. <u>Use a `SSH connection` </u><sup> [learn how](#ssh)</sup>  between your VM and your work station (___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extension  for __Visual Studio code__ called `Remote - SSH` . <br>
+1. <u>Use a SSH connection</u> between your VM and your work station<sup> [learn how](#ssh)</sup>\
+(___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extension  for __Visual Studio code__ called `Remote - SSH`. 
+ <br>[  [Download it here](#remotessh)</sup> ]
 
-<img src= "./img/ssh-readme.gif" >
+<p align="center"> <img width=650 src= "./img/ssh-readme.gif"> </p>
 
-<!-- <img width=700px height=500px src="https://securityjournalblog.files.wordpress.com/2019/11/ssh-readme.gif" ></a> -->
+<p align="center">
+
 
 This will make it  easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
-	__Link for the extension:__
-https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
+
 
 2. <u>_Do ONE container at a time._</u> It will be easier to handle errors and to give order to the topics you will learn, the logic I followed was:
 	
@@ -56,8 +60,8 @@ https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
 \
 In short, if you don't know how to do something, see what others do, try to understand it and then write your approach.
 
-4. ___Speedrun the project___ 🤪 \
-Oke this is a super alternative learning method, but it has proven me to work to a certain extent with other projects. In this case I suggest you to do this last <u>ONLY</u> if you feel like understanding and reinforcing on what you just did. \
+4. ___Speedrun the project___ 🤪 (AKA the super alternative learning method)\
+Weird suggestion I know, but it has proven me to work to a certain extent with other projects. In this case I suggest you to do this <u>ONLY</u> if you feel like understanding and reinforcing on what you just did. \
 No need to write all files from the beginning, I mean, you already did right?, so its a matter of straight checking boxes and using the material you already created
 
 ## Getting Started <a name = "getting_started"></a>
@@ -78,8 +82,11 @@ The first step for this project is obviously to get your hands on a ```virtual m
 
 It will be important that you start getting familiar with Docker and with the syntax of Docker Files and of Docker-compose. this two files are basically the ```Core``` of your project.
 
-## Straight to the point <a name = "to_the_point"></a>
-### Nginx
+## Straight to the point 🎯<a name = "to_the_point"></a>
+
+Alright! lets do this! 💪🏼
+## <u>_Nginx_</u><br>
+
 -  __What you need to know about NginX:__ \
 Nginx is an open-source software, functioning initially as a web server, but it’s also used as a reverse proxy, HTTP cache, or a load balancer.\
 Nginx is a web server which stores html, js, images files and use http request to display a website. The default configuration file of Nginx is nginx.conf and Nginx conf documents will be used to config our server and the right proxy connexion.
@@ -98,37 +105,49 @@ sudo apt install ufw
 sudo sudo ufw allow 'Nginx HTTP'
 ```
 - __*DOCKERFILE*__:\
-Now we have to create a dockerfile in order to install our nginx in a single container, so here is a summary of some useful syntax used to write a dockerfile:
+Now we have to create a dockerfile in order to install our nginx in a single container, so here is a summary of some useful syntax used to write a dockerfile \
+<sup>[learn more](#learnmore1)</sup> 
 
 ```Docker
-FROM - instruction used to specify the valid docker image name. So specified Docker Image will be downloaded from docker hub registry if it is not exists locally.
+FROM	# Instruction used to specify the valid docker image name.
+		# So specified Docker Image will be downloaded from the
+		# docker hub registry if it is not exists locally.
 
-RUN - This runs a Linux command. Used to install packages into container, create folders, etc.
+RUN		# This runs a Linux command. Used to install packages into
+		# container, create folders, etc.
 
-COPY - instruction is used to copy files, directories and remote URL files to the destination within the filesystem of the Docker Images. 
+COPY	# Instruction is used to copy files, directories and remote URL files
+		# to the destination within the filesystem of the Docker Images. 
 
-EXPOSE -  instruction is used to inform about the network ports that the container listens on runtime. Docker uses this information to interconnect containers using links and to set up port redirection on docker host system.
+EXPOSE	# Instruction is used to inform about the network ports that the container 
+		# listens on runtime. Docker uses this information to interconnect containers
+		# using links and to set up port redirection on docker host system.
 
-CMD - allows you to set a default command which will be executed only when you run a container without specifying a command. 
-
+CMD		# Allows you to set a default command which will be executed only when
+		# you run a container without specifying a command.
 ```
+For Nginx Docker-file, be sure to include the flag ````-g daemon off```` in the CMD in order for nginx to stay run in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
 
-- __*Useful commands*__:
+Like so `CMD ["nginx", "-g", "daemon off;"]`
 
-```bash
-#If comands ask for sudo, add user to sudo and docker group
-docker-compose up					# runs the docker-compose file (builds all)
-docker built . -t name_of_image	# builds the docker image
-docker images						# Shows images built
-docker ps						# Shows containers running
-docker run -p 443:443 imageName	# To run and test without docker compose
-systemctl status ufw				# check if the firewall is up and active
-systemctl status nginx				# checks if nginx server is up and running
-service nginx start				# starts the server
-service nginx stop					# stops the server 
-cat /etc/nginx/nginx.conf				# this is the original config file of nginx
-#BE CAREFUL WHEN BUILDING IMAGES TO ALSO DELETE THEM TO SAVE SPACE, USE THIS COMAND TO DO THAT
-sudo docker rmi -f $(sudo docker images -qa) && sudo docker rm -f $(sudo docker ps -qa) 
+- __*Useful commands*__:  
+If these commands ask for sudo, simply add the user to the sudo and docker group
+
+```shell
+> docker-compose up					# runs the docker-compose file (builds all)
+> docker built . -t name_of_image	# builds the docker image
+> docker images						# Shows images built
+> docker ps							# Shows containers running
+> docker run -p 443:443 imageName	# To run and test without docker compose
+> systemctl status ufw				# check if the firewall is up and active
+> systemctl status nginx			# checks if nginx server is up and running
+> service nginx start				# starts the server
+> service nginx stop				# stops the server 
+> cat /etc/nginx/nginx.conf			# this is the original config file of nginx
+
+>"BE CAREFUL WHEN BUILDING IMAGES TO ALSO DELETE THEM TO SAVE SPACE, USE THIS COMAND TO DO THAT"
+
+> docker rmi -f $(sudo docker images -qa) && sudo docker rm -f $(sudo docker ps -qa) 
 
 ```
 
@@ -139,9 +158,6 @@ sudo docker rmi -f $(sudo docker images -qa) && sudo docker rm -f $(sudo docker 
 
 In order to set the  TLS version we have to add  ___``` ssl_protocols TLSv1.2; ```___ into our ```nginx.conf```
 
-- __CMD in NGINX__
-
-	If you add a custom CMD in the Docker-file, be sure to include -g daemon off; in the CMD in order for nginx to stay in the foreground, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
 
 ### MariaDB
 
@@ -157,7 +173,7 @@ sudo mysql_secure_installation`
 <br>
 <br>
 
-<p> <h2 align="center"><u>YOU MADE IT THROUGH <br> CONGRATULATIONS!<u/></h2>
+<p> <h2 align="center"><u>YOU MADE IT THROUGH <br> CONGRATULATIONS! 🎉<u/></h2>
 <p align="center">
   <a href="" rel="noopener">
  <img src="https://tech.osteel.me/images/2020/03/04/docker-part-1-04.gif" alt="Project logo"></a>
@@ -166,21 +182,24 @@ sudo mysql_secure_installation`
 
 ## Resources <a name = "resources"></a>
 
-__GENERAL__ 
+______GENERAL______ 
 
 <a name="lemp">LEMP Stack deployment
 
 - https://www.digitalocean.com/community/tutorialshow-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-20-04
 
-<a name="lemp">How to SSH into your VS code
+<a name="ssh">How to SSH into your VS code
 - https://adamtheautomator.com/vs-code-remote-ssh
 
-__DOCKER__
+<a name="sshremote">VS code Extension for remote SSH connection 
+- https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
+
+______DOCKER______
 
 Learn how to make a Docker-compose file
 - https://www.youtube.com/watch?v=DM65_JyGxCo 
 
-Learn about `Dockerfile` commands and Syntax
+<a name="learnmore1">Learn about `Dockerfile` commands and Syntax
 - https://www.learnitguide.net/2018/06/dockerfile-explained-with-examples.html
 
 Using variables in Docker compose
@@ -189,12 +208,12 @@ Using variables in Docker compose
 Some more Docker knowledge 
 - https://blog.sourcerer.io/a-crash-course-on-docker-learn-to-swim-with-the-big-fish-6ff25e8958b0
 
-__NGINX__
+______NGINX______
 
 - http://nginx.org/en/docs/beginners_guide.html
 - https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
 
-__WORDPRESS__
+*______WORDPRESS______*
 
 - https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose
 - https://www.cloudbooklet.com/install-wordpress-with-docker-compose-nginx-apache-with-ssl/
