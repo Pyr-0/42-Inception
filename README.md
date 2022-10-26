@@ -85,6 +85,7 @@ It will be important that you start getting familiar with Docker and with the sy
 ## Straight to the point 🎯<a name = "to_the_point"></a>
 
 Alright! lets do this! 💪🏼
+
 ## <u>_Nginx_</u><br>
 
 -  __What you need to know about NginX:__ \
