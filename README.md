@@ -90,14 +90,14 @@ The first step for this project is obviously to get your hands on a ```virtual m
 2. _<h3><p align="left" >Install Docker and Docker-compose VM</h3>_
 
 ```shell
->	sudo apt-get install docker					# install Docker
+>	sudo apt-get install docker			# install Docker
 >	sudo apt-get install -y docker-compose		# install Docker-compose
 ```
 </p>
 
 3. _<h3><p align="left" >Configure user groups and permissions VM</h3>_
 ```shell
-> sudo adduser user_name					# If needed add a new user
+> sudo adduser user_name			# If needed add a new user
 > sudo usermod -aG sudo user_name			# Add user to sudo group
 > sudo usermod -aG docker user_name			# add user to docker group
 ````
