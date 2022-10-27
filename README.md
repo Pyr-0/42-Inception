@@ -151,8 +151,8 @@ The following commands will get the Nginx server running and it can be tested by
 > sudo systemctl enable nginx	#Enables Nginx to automatically start at boot time.
 _____________________________________________________________________________________
 
-> " installing Nginx in a container makes use of most of this commands but needs a personalized \
-configuration via config files. but if you simply want to test that it works outside a container \
+> " installing Nginx in a container makes use of most of this commands but needs a personalized
+configuration via config files. but if you simply want to test that it works outside a container
 then use the following commands "
 sudo apt install ufw
 sudo sudo ufw allow 'Nginx HTTP'
