@@ -4,9 +4,14 @@
  <img width=100px height=100px src="https://i.pinimg.com/originals/70/b2/f1/70b2f130bdb8d52c11eb69b83beef20e.gif" alt="Project logo"></a>
 </p>
 
+
 <div align="center">
 
-[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/) [![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+
+[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/)
+
+[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
 </div>
 
 ---
@@ -19,13 +24,13 @@
 - [Nginx](#nginx)
 - [Resources](#resources)
 
-## 📓 About <a name = "about"></a>
+## <u>📓 About <a name = "about"></a></u>
 
 Inception is a project about Docker containers, this will help expand knowledge about system administration and some Web development skills as well.\
 This project can also be understood under the name of ```LEMP Stack Deployment``` <sup> [learn more](#lemp)</sup>  \
 which simply stands for Linux, NGINX (pronounced Engine X), MySQL, and PHP-FPM.
 
-## 🤖 Before you start: Suggestions <a name = "suggestions"></a>
+## <u>🤖 Before you start: Suggestions <a name = "suggestions"></a></u>
 
 This project carries a lot of diverse topics, and with them <u>A LOT</u>  of documentation, for that reason I created this guide, to have the [Resources](#resources) necessary for you to get some information about each topic and hopefully save some hours and avoid falling down the rabbit hole of material that one can find online. \
 For the order of the project I want to suggest some points that helped me to not get lost, learn comfortably and move forward quicker.\
@@ -37,9 +42,6 @@ For the order of the project I want to suggest some points that helped me to not
  <br>[  [Download it here](#remotessh)</sup> ]
 
 <p align="center"> <img width=650 src= "./assets/ssh-readme.gif"> </p>
-
-<p align="center">
-
 
 This will make it  easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
 
@@ -64,22 +66,70 @@ In short, if you don't know how to do something, see what others do, try to unde
 Weird suggestion I know, but it has proven me to work to a certain extent with other projects. In this case I suggest you to do this <u>ONLY</u> if you feel like understanding and reinforcing on what you just did. \
 No need to write all files from the beginning, I mean, you already did right?, so its a matter of straight checking boxes and using the material you already created
 
-## Getting Started <a name = "getting_started"></a>
+## 🎬 <u>Getting Started <a name = "getting_started"></a></u>
 
-<u>_Setting up a Virtual Machine_</u>
+***<h3>Setting up a Virtual Machine</h3>***
 
-The first step for this project is obviously to get your hands on a ```virtual machine``` with any Linux distribution. In this machine you will need to install ``` Docker && Docker-compose``` and setup the according ```sudo permissions``` necessary for your user to work.
+The first step for this project is obviously to get your hands on a ```virtual machine``` with any Linux distribution. In this machine you will need to install ``` Docker && Docker-compose``` and setup the according ```sudo permissions``` necessary for your user to work. 
+1. _<h3><p align="left" >Install and configure your ssh in your VM</h3>_
 
-`sudo adduser user_name`
+```shell
+>	sudo apt-get update						# update the system
+>	sudo apt-get upgrade					# upgrade to current version
+>	sudo apt-get install openssh-server		# install ssh service
+>	sudo systemctl enable ssh				# enable ssh service
+>	sudo systemctl status ssh				# check if its running
+>	sudo apt-get install -y ufw				# install firewall
+>	sudo ufw allow ssh						# install allow ssh connection via port 22/tcp
+>	sudo ufw enable							# enable firewall
+>	sudo ufw status							# check status
+>	ssh username@IP_address					# connect to your VM ip address via ssh
+```
+</p>
 
-`sudo usermod -aG sudo user_name`
+2. _<h3><p align="left" >Install Docker and Docker-compose VM</h3>_
 
-`sudo usermod -aG docker user_name`
+```shell
+>	sudo apt-get install docker					# install Docker
+>	sudo apt-get install -y docker-compose		# install Docker-compose
+```
+</p>
 
-`sudo usermod -aG vboxsf user_name (if you use shared folders on your vm)`
+3. _<h3><p align="left" >Configure user groups and permissions VM</h3>_
+```shell
+> sudo adduser user_name					# If needed add a new user
+> sudo usermod -aG sudo user_name			# Add user to sudo group
+> sudo usermod -aG docker user_name			# add user to docker group
+````
 
-<u>_Get Familiar with Docker_</u>
+***<h3>Getting familiar with Docker</h3>***
 
+This project is mainly about learning to use Docker so its good to start getting familiar with what it is and the common commands to use it. \
+Docker is a tool designed to make it easier to create, deploy, and run applications by using containers. Containers allow a developer to package up an application with all of the parts it needs, such as libraries and other dependencies, and ship it all out as one package.<sup>[Learn more](#learnmore2) </sup> 
+
+<br>
+
+In order to build our containers, each will need a set of instructions that can install the corresponding dependencies for each Service to run and this instructions are writen in a file called `Dockerfile`
+
+**DOCKERFILE\'S  MAIN SYNTAX**:<br>
+```Docker
+FROM	# Instruction used to specify the valid docker image name.
+		# So specified Docker Image will be downloaded from the
+		# docker hub registry if it is not exists locally.
+
+RUN		# This runs a Linux command. Used to install packages into
+		# container, create folders, etc.
+
+COPY	# Instruction is used to copy files, directories and remote URL files
+		# to the destination within the filesystem of the Docker Images. 
+
+EXPOSE	# Instruction is used to inform about the network ports that the container 
+		# listens on runtime. Docker uses this information to interconnect containers
+		# using links and to set up port redirection on docker host system.
+
+CMD		# Allows you to set a default command which will be executed only when
+		# you run a container without specifying a command.
+```
 It will be important that you start getting familiar with Docker and with the syntax of Docker Files and of Docker-compose. this two files are basically the ```Core``` of your project.
 
 ## Straight to the point 🎯<a name = "to_the_point"></a>
@@ -105,29 +155,12 @@ ________________________________________________________________________________
 sudo apt install ufw
 sudo sudo ufw allow 'Nginx HTTP'
 ```
-- __*DOCKERFILE*__:\
-Now we have to create a dockerfile in order to install our nginx in a single container, so here is a summary of some useful syntax used to write a dockerfile \
-<sup>[learn more](#learnmore1)</sup> 
-
-```Docker
-FROM	# Instruction used to specify the valid docker image name.
-		# So specified Docker Image will be downloaded from the
-		# docker hub registry if it is not exists locally.
-
-RUN		# This runs a Linux command. Used to install packages into
-		# container, create folders, etc.
-
-COPY	# Instruction is used to copy files, directories and remote URL files
-		# to the destination within the filesystem of the Docker Images. 
-
-EXPOSE	# Instruction is used to inform about the network ports that the container 
-		# listens on runtime. Docker uses this information to interconnect containers
-		# using links and to set up port redirection on docker host system.
-
-CMD		# Allows you to set a default command which will be executed only when
-		# you run a container without specifying a command.
+- __Nginx Docker-file__ \
+Be sure to run nginx in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
+```docker 
+	CMD ["nginx", "-g" "daemon_off"
 ```
-For Nginx Docker-file, be sure to include the flag ````-g daemon off```` in the CMD in order for nginx to stay run in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
+ in the CMD in order for nginx to stay run in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
 
 Like so `CMD ["nginx", "-g", "daemon off;"]`
 
@@ -190,13 +223,16 @@ ______GENERAL______
 - https://www.digitalocean.com/community/tutorialshow-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-20-04
 
 <a name="ssh">How to SSH into your VS code
+- https://linuxhint.com/install-configure-linux-ssh/
 - https://adamtheautomator.com/vs-code-remote-ssh
 
-<a name="sshremote">VS code Extension for remote SSH connection 
+<a name="remotessh">VS code Extension for remote SSH connection 
 - https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
 
 ______DOCKER______
 
+Learn about Docker
+- https://www.youtube.com/watch?v=eGz9DS-aIeY
 Learn how to make a Docker-compose file
 - https://www.youtube.com/watch?v=DM65_JyGxCo 
 
