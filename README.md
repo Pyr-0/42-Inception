@@ -74,16 +74,16 @@ The first step for this project is obviously to get your hands on a ```virtual m
 1. _<h3><p align="left" >Install and configure your ssh in your VM</h3>_
 
 ```shell
->	sudo apt-get update		# update the system
->	sudo apt-get upgrade	# upgrade to current version
+>	sudo apt-get update					# update the system
+>	sudo apt-get upgrade					# upgrade to current version
 >	sudo apt-get install openssh-server		# install ssh service
->	sudo systemctl enable ssh		# enable ssh service
->	sudo systemctl status ssh		# check if its running
->	sudo apt-get install -y ufw		# install firewall
->	sudo ufw allow ssh		# install allow ssh connection via port 22/tcp
->	sudo ufw enable		# enable firewall
->	sudo ufw status		# check status
->	ssh username@IP_address		# connect to your VM ip address via ssh
+>	sudo systemctl enable ssh				# enable ssh service
+>	sudo systemctl status ssh				# check if its running
+>	sudo apt-get install -y ufw				# install firewall
+>	sudo ufw allow ssh						# install allow ssh connection via port 22/tcp
+>	sudo ufw enable							# enable firewall
+>	sudo ufw status							# check status
+>	ssh username@IP_address					# connect to your VM ip address via ssh
 ```
 </p>
 
