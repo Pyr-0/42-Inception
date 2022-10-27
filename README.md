@@ -36,7 +36,7 @@ For the order of the project I want to suggest some points that helped me to not
 (___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extension  for __Visual Studio code__ called `Remote - SSH`. 
  <br>[  [Download it here](#remotessh)</sup> ]
 
-<p align="center"> <img width=650 src= "./img/ssh-readme.gif"> </p>
+<p align="center"> <img width=650 src= "./assets/ssh-readme.gif"> </p>
 
 <p align="center">
 
