@@ -97,7 +97,7 @@ The first step for this project is obviously to get your hands on a ```virtual m
 
 3. _<h3><p align="left" >Configure user groups and permissions VM</h3>_
 ```shell
-> sudo adduser user_name			# If needed add a new user
+> sudo adduser user_name				# If needed add a new user
 > sudo usermod -aG sudo user_name			# Add user to sudo group
 > sudo usermod -aG docker user_name			# add user to docker group
 ````
@@ -113,17 +113,17 @@ In order to build our containers, each will need a set of instructions that can 
 
 **DOCKERFILE\'S  MAIN SYNTAX**:<br>
 ```Docker
-FROM	# Instruction used to specify the valid docker image name.
+FROM		# Instruction used to specify the valid docker image name.
 		# So specified Docker Image will be downloaded from the
 		# docker hub registry if it is not exists locally.
 
 RUN		# This runs a Linux command. Used to install packages into
 		# container, create folders, etc.
 
-COPY	# Instruction is used to copy files, directories and remote URL files
+COPY		# Instruction is used to copy files, directories and remote URL files
 		# to the destination within the filesystem of the Docker Images. 
 
-EXPOSE	# Instruction is used to inform about the network ports that the container 
+EXPOSE		# Instruction is used to inform about the network ports that the container 
 		# listens on runtime. Docker uses this information to interconnect containers
 		# using links and to set up port redirection on docker host system.
 
@@ -148,10 +148,12 @@ The following commands will get the Nginx server running and it can be tested by
 ```bash
 sudo apt update 
 sudo apt -y install nginx
-sudo systemctl enable nginx		#Enables Nginx to automatically start at boot time.
+sudo systemctl enable nginx	#Enables Nginx to automatically start at boot time.
 _____________________________________________________________________________________
 
-# installing Nginx in a container makes use of most of this commands but needs a personalized configuration via config files. but if you simply want to test that it works outside a container then use the following commands 
+# installing Nginx in a container makes use of most of this commands but needs a personalized 
+# configuration via config files. but if you simply want to test that it works outside a container
+# then use the following commands 
 sudo apt install ufw
 sudo sudo ufw allow 'Nginx HTTP'
 ```
@@ -168,11 +170,11 @@ Like so `CMD ["nginx", "-g", "daemon off;"]`
 If these commands ask for sudo, simply add the user to the sudo and docker group
 
 ```shell
-> docker-compose up					# runs the docker-compose file (builds all)
-> docker built . -t name_of_image	# builds the docker image
-> docker images						# Shows images built
-> docker ps							# Shows containers running
-> docker run -p 443:443 imageName	# To run and test without docker compose
+> docker-compose up				# runs the docker-compose file (builds all)
+> docker built . -t name_of_image		# builds the docker image
+> docker images					# Shows images built
+> docker ps					# Shows containers running
+> docker run -p 443:443 imageName		# To run and test without docker compose
 > systemctl status ufw				# check if the firewall is up and active
 > systemctl status nginx			# checks if nginx server is up and running
 > service nginx start				# starts the server
