@@ -154,8 +154,8 @@ ________________________________________________________________________________
 > " installing Nginx in a container makes use of most of this commands but needs a personalized
 configuration via config files. but if you simply want to test that it works outside a container
 then use the following commands "
-sudo apt install ufw
-sudo sudo ufw allow 'Nginx HTTP'
+> sudo apt install ufw
+> sudo sudo ufw allow 'Nginx HTTP'
 ```
 - __Nginx Docker-file__ \
 Be sure to run nginx in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
