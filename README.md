@@ -145,15 +145,15 @@ Nginx is a web server which stores html, js, images files and use http request t
 -  __Installation:__ \
 The following commands will get the Nginx server running and it can be tested by opening a browser and  typing ``` localhost ```
 
-```bash
-sudo apt update 
-sudo apt -y install nginx
-sudo systemctl enable nginx	#Enables Nginx to automatically start at boot time.
+```shell
+> sudo apt update 
+> sudo apt -y install nginx
+> sudo systemctl enable nginx	#Enables Nginx to automatically start at boot time.
 _____________________________________________________________________________________
 
-# installing Nginx in a container makes use of most of this commands but needs a personalized 
-# configuration via config files. but if you simply want to test that it works outside a container
-# then use the following commands 
+> # installing Nginx in a container makes use of most of this commands but needs a personalized 
+> # configuration via config files. but if you simply want to test that it works outside a container
+> # then use the following commands 
 sudo apt install ufw
 sudo sudo ufw allow 'Nginx HTTP'
 ```
@@ -163,8 +163,6 @@ Be sure to run nginx in debug mode (foreground) and not as a daemon, so that Doc
 	CMD ["nginx", "-g" "daemon_off"
 ```
  in the CMD in order for nginx to stay run in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
-
-Like so `CMD ["nginx", "-g", "daemon off;"]`
 
 - __*Useful commands*__:  
 If these commands ask for sudo, simply add the user to the sudo and docker group
@@ -202,10 +200,11 @@ In order to set the  TLS version we have to add  ___``` ssl_protocols TLSv1.2; `
 
 -  __Installation:__ \
 
-`sudo apt update
-sudo apt install mariadb-server
-sudo mysql_secure_installation`
-
+```shell
+> sudo apt update				# Run updates
+> sudo apt install mariadb-server	# install Data base Service
+> sudo mysql_secure_installation	# Ensure secure connection to data base
+```
 <br>
 <br>
 
