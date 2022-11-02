@@ -123,6 +123,10 @@ RUN		# This runs a Linux command. Used to install packages into
 COPY		# Instruction is used to copy files, directories and remote URL files
 		# to the destination within the filesystem of the Docker Images. 
 
+ADD			#This command works like a mix of RUN and COPY.
+		# A valid use case for ADD is when you want to extract a local tar file
+		# into a specific directory in your Docker image.
+
 EXPOSE		# Instruction is used to inform about the network ports that the container 
 		# listens on runtime. Docker uses this information to interconnect containers
 		# using links and to set up port redirection on docker host system.
@@ -159,8 +163,8 @@ then use the following commands "
 ```
 - __Nginx Docker-file__ \
 Be sure to run nginx in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
-```docker 
-	CMD ["nginx", "-g" "daemon_off"
+```Docker 
+CMD ["nginx", "-g" "daemon_off" 
 ```
  in the CMD in order for nginx to stay run in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
 
@@ -181,7 +185,8 @@ If these commands ask for sudo, simply add the user to the sudo and docker group
 
 >"BE CAREFUL WHEN BUILDING IMAGES TO ALSO DELETE THEM TO SAVE SPACE, USE THIS COMAND TO DO THAT"
 
-> docker rmi -f $(sudo docker images -qa) && sudo docker rm -f $(sudo docker ps -qa) 
+> docker rmi -f $(docker images -qa)
+> docker rm -f $(docker ps -qa)
 
 ```
 
@@ -192,8 +197,48 @@ If these commands ask for sudo, simply add the user to the sudo and docker group
 
 In order to set the  TLS version we have to add  ___``` ssl_protocols TLSv1.2; ```___ into our ```nginx.conf```
 
+## 💾 <u>_Wordpress_</u><br>
+What are the steps to create your Wordpress
 
-### MariaDB
+## Create you dockerfile image
+- Download php-fpm
+- Copy your own www.conf file into php/7.3/fpm/pool.d/
+- Create the php directory to enable php-fpm to run
+- Copy the script and launch it
+- Go to the html directory
+- Launch php-fpm
+
+## Create a script
+- Download Wordpress
+- Create the configuration file of Wordpress
+- Move files from Wordpress in the html directory
+- Give the 4th environmental variables for Wordpress
+
+## Create a www.conf 
+You need to edit www.conf and place it in `/etc/php/7.3/fpm/pool.d` and `wp-content.php` to disable (7.3 is the usual version of php on a 42 VM) access to the Wordpress installation page when you access your site at https://login.42.fr
+- Put listen = 0.0.0.0:9000 to listen to all ports
+- Increase the number for the pm values in order to avoid a 502 page
+
+__Installation:__
+
+```shell
+> sudo apt update && sudo apt install \		# Run updates and install php + extensions
+	php-cli \
+	php-fpm \
+	php-json \
+	php-pdo \
+	php-mysql \
+	php-zip \
+	php-gd  \
+	php-mbstring \
+	php-curl \
+	php-xml \
+	php-pear \
+	php-bcmath \ 
+	curl
+```
+
+## <u>_MariaDB_</u><br>
 
 -  __What you need to know about MariaDB:__ \
 
@@ -205,6 +250,7 @@ In order to set the  TLS version we have to add  ___``` ssl_protocols TLSv1.2; `
 > sudo apt install mariadb-server	# install Data base Service
 > sudo mysql_secure_installation	# Ensure secure connection to data base
 ```
+
 <br>
 <br>
 
@@ -250,6 +296,8 @@ ______NGINX______
 
 - http://nginx.org/en/docs/beginners_guide.html
 - https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
+Use TSL V1.3 ONLY
+- https://www.cyberciti.biz/faq/configure-nginx-to-use-only-tls-1-2-and-1-3/
 
 *______WORDPRESS______*
 

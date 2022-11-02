@@ -2,7 +2,6 @@ server {
 
      # TELLS TO LISTEN TO PORT 443 (ITS AN HTTP PORT)
      listen 443 ssl;
-
      # same but for IPV6
 	listen [::]:443 ssl;
 
@@ -29,6 +28,17 @@ server {
 	location / {
 		try_files $uri $uri/ =404;
 	}
+
+	# Now we check for the configuration of PHP on nginx
+	location ~ [^/]\.php(/|$) {
+		fastcgi_pass wordpress:9000;
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_index index.php;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_param PATH_INFO $fastcgi_path_info;
+		include fastcgi_params;
+	}
+}
 
 	# will redirect us to https://$host$request_uri;
 	# when we try to reach the website name in our browser

@@ -12,7 +12,6 @@ services:
       - 443:443
     restart: always
 
-
 # #====MARIADB====
 
 mariadb:
@@ -22,7 +21,7 @@ mariadb:
   #volumes allow to store in a persistent disk the content in a local disk
   #db_data is a volume created by docker directly
   volumes:
-    - mariadb_vol:/var/lib/mysql
+    - mariadb_vol:/var/lib/mariadb
   networks:
     - inception_network
   env_file:
@@ -31,20 +30,31 @@ mariadb:
   #if there is any crash we restart the container automatically
 
 
-# #====WORDPRESS====
+  # #====WORDPRESS====
 
 wordpress:
   depends__on:
-    - mysql
+    - mariadb
   image: wordpress
-  ports: 
-  volumes: ['./:var/www/html']
+  volumes:
+    - wordpress_vol:/var/www/html
   env_file: .env
   network:
     - inception_network
+  restart:
+    - always
 
 networks:
   inception_network:
     driver: bridge
-  volumes:
+
+#Setting up the binding of the volumes with the correct container
+volumes:
     mariadb_vol:
+      driver: local
+      driver_opts:
+        device: /home/mrojas-e/data/mariadb
+    wordpress_vol:
+      driver: local
+      driver_opts:
+        device: /home/mrojas-e/data/wordpress
