@@ -254,12 +254,12 @@ __Installation:__
 <br>
 <br>
 
-<p> <h2 align="center"><u>YOU MADE IT THROUGH <br> CONGRATULATIONS! 🎉<u/></h2>
+<!-- <p> <h2 align="center"><u>YOU MADE IT THROUGH <br> CONGRATULATIONS! 🎉<u/></h2>
 <p align="center">
   <a href="" rel="noopener">
  <img src="https://tech.osteel.me/images/2020/03/04/docker-part-1-04.gif" alt="Project logo"></a>
 
-<br>
+<br> -->
 
 ## Resources <a name = "resources"></a>
 
