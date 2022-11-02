@@ -62,7 +62,7 @@ This will make it  easier to work on the project if you like, for example, openi
 \
 In short, if you don't know how to do something, see what others do, try to understand it and then write your approach.
 
-4. ___Speedrun the project___ 🤪 (AKA the super alternative learning method)\
+4. ___Speed-run the project___ 🤪 (AKA the super alternative learning method)\
 Weird suggestion I know, but it has proven me to work to a certain extent with other projects. In this case I suggest you to do this <u>ONLY</u> if you feel like understanding and reinforcing on what you just did. \
 No need to write all files from the beginning, I mean, you already did right?, so its a matter of straight checking boxes and using the material you already created
 
@@ -109,7 +109,7 @@ Docker is a tool designed to make it easier to create, deploy, and run applicati
 
 <br>
 
-In order to build our containers, each will need a set of instructions that can install the corresponding dependencies for each Service to run and this instructions are writen in a file called `Dockerfile`
+In order to build our containers, each will need a set of instructions that can install the corresponding dependencies for each Service to run and this instructions are written in a file called `Dockerfile`
 
 **DOCKERFILE\'S  MAIN SYNTAX**:<br>
 ```Docker
@@ -251,6 +251,8 @@ __Installation:__
 > sudo mysql_secure_installation	# Ensure secure connection to data base
 ```
 
+
+. . . To be continued 
 <br>
 <br>
 
