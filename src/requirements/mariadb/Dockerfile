@@ -6,9 +6,10 @@ FROM debian:buster
 
 #	Do mind that this port will only be exposed for other docker containers but not for the host
 EXPOSE	3306
+
 # install nginx and update the system (debian is limited with its package manager so run apt-get
 RUN apt-get update && apt-get install -y \
-	mariadb-server && \
+	mariadb-server mariadb-client && \
 	rm -rf /var/lib/apt/lists/*
 
 #	Remove the original config file from mariadb and replace it with your own

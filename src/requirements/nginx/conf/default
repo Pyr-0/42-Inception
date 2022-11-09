@@ -45,4 +45,3 @@ server {
 	# NGINX 301 Redirect is a form of HTTP redirection. One can utilize HTTP redirection 
 	# to direct one domain or address to another domain or address.
 	# return 301 https://$host$request_uri;
- }
