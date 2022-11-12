@@ -1,48 +1,20 @@
-build:
-        mkdir -p ./data/wordpress/content
-        mkdir -p ./data/mariadb/database
-        sudo docker-compose -f ./srcs/docker-compose.yml build
-up:
-        sudo docker compose -f ./srcs/docker-compose.yml up -d
-stop:
-        sudo docker-compose -f ./srcs/docker-compose.yml stop
+all:
+	@docker compose -f ./scrs/docker-compose.yml up -d --build
+
+down:
+	@docker compose -f ./scrs/docker-compose.yml down
+
+re:
+	@docker compose -f scrs/docker-compose.yml up -d --build
+
 clean:
-        sudo docker-compose -f ./srcs/docker-compose.yml down
-fclean:
-        sudo docker-compose -f ./srcs/docker-compose.yml down --volumes --rmi all
-re: fclean up
-clean-all:
- # WARNING: Deleting images, volumes, files in host, everything will be gone.
-        sudo docker-compose -f ./srcs/docker-compose.yml down --volumes --rmi all
- # WARNING: Delete wordpress folder in host!
-        @if [ -d "/home/$(USER)/inception/data/wordpress" ]; then \
-        sudo rm -rf /home/$(USER)/inception/data/wordpress/* && \
-        echo "successfully removed all contents from /home/$(USER)/inception/data/wordpress/"; \
-        fi;
- # WARNING: Delete mariadb folder in host!
-        @if [ -d "/home/$(USER)/inception/data/mariadb" ]; then \
-        sudo rm -rf /home/$(USER)/inception/data/mariadb/* && \
-        echo "successfully removed all contents from /home/$(USER)/inception/data/mariadb/"; \
-        fi;
-        sudo docker system prune -f --volumes -a
+	@docker stop $$(docker ps -qa);\
+	docker rm $$(docker ps -qa);\
+	docker rmi -f $$(docker images -qa);\
+	docker volume rm $$(docker volume ls -q);\
+	docker network rm $$(docker network ls -q);\
 
-# all:
-# 	@docker compose -f ./scrs/docker-compose.yml up -d --build
-
-# down:
-# 	@docker compose -f ./scrs/docker-compose.yml down
-
-# re:
-# 	@docker compose -f scrs/docker-compose.yml up -d --build
-
-# clean:
-# 	@docker stop $$(docker ps -qa);\
-# 	docker rm $$(docker ps -qa);\
-# 	docker rmi -f $$(docker images -qa);\
-# 	docker volume rm $$(docker volume ls -q);\
-# 	docker network rm $$(docker network ls -q);\
-
-# .PHONY: all re down clean
+.PHONY: all re down clean
 
 # BLACK		:= $(shell tput -Txterm setaf 0)
 # RED		:= $(shell tput -Txterm setaf 1)
@@ -54,7 +26,7 @@ clean-all:
 # WHITE		:= $(shell tput -Txterm setaf 7)
 # RESET		:= $(shell tput -Txterm sgr0)
 
-# COMPOSE_FILE=./srcs/docker-compose.yml
+# COMPOSE_FILE=./src/docker-compose.yml
 
 # all: run
 

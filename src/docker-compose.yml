@@ -25,7 +25,7 @@ services:
     #volumes allow to store in a persistent disk the content in a local disk
     #db_data is a volume created by docker directly
     volumes:
-      - mariadb_vol:/var/lib/mariadb
+      - mariadb_vol:/var/lib/mysql
     networks:
       - inception_network
     env_file:
@@ -39,6 +39,7 @@ services:
   wordpress:
     depends_on:
       - mariadb
+    container_name: wordpress
     image: wordpress
     volumes:
       - wordpress_vol:/var/www/html
