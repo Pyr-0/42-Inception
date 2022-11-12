@@ -2,9 +2,9 @@
 FROM debian:buster
 
 # install nginx and update the system (debian is limited with its package manager so run apt-get
-RUN apt-get update && \
-	apt-get  -y install nginx && \
-	apt-get install openssl
+RUN apt update && \
+	apt  -y install nginx && \
+	apt install openssl
 
 # nginx SSL
 RUN mkdir  /etc/nginx/ssl
