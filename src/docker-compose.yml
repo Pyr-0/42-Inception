@@ -12,6 +12,7 @@ services:
   mariadb:
     container_name: mariadb
     image: mariadb
+    env_file: .env
     build:
       context: ./requirements/mariadb
       args:
@@ -19,7 +20,6 @@ services:
          - DB_USER=${DB_USER}
          - DB_PASSWORD=${DB_PASSWORD}
          - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-    env_file: .env
     #volumes allow to store in a persistent disk the content in a local disk
     #db_data is a volume created by docker directly
     networks:
@@ -47,11 +47,11 @@ services:
 
   nginx:
     container_name: nginx
-    volumes:
-      - wordpress_vol:/var/www/html
-    depends_on:
-      - wordpress
-      - mariadb
+    # volumes:
+    #   - wordpress_vol:/var/www/html
+    # depends_on:
+    #   - wordpress
+    #   - mariadb
     build: ./requirements/nginx
     networks:
       - inception_network
@@ -66,9 +66,11 @@ volumes:
       driver: local
       driver_opts:
         device: "/home/mrojas-e/data/mariadb"
+        type: none
         o: bind
     wordpress_vol:
       driver: local
       driver_opts:
+        type: none
         device: "/home/mrojas-e/data/wordpress"
         o: bind
