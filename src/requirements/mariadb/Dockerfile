@@ -17,10 +17,10 @@ RUN apt-get update && apt-get install -y \
 RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
 
-# ARG DB_NAME=${DB_DATABASE}
-# ARG DB_USER=${DB_USER}
-# ARG DB_PASSWORD=${DB_PASSWORD}
-# ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+ARG DB_NAME=${DB_DATABASE}
+ARG DB_USER=${DB_USER}
+ARG DB_PASSWORD=${DB_PASSWORD}
+ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
 # Copy our config file in the nginx config folder
 COPY ./tools/create_user.sh /
 
