@@ -4,50 +4,60 @@ networks:
   inception_network:
     driver: bridge
 
-#=====NGINX======
 
 services:
-  nginx:
-    container_name: nginx
-    build: ./requirements/nginx
-    networks:
-      - inception_network
-    ports:
-      - 443:443
-    restart: always
 
 # #====MARIADB====
 
   mariadb:
-    image: mariadb
     container_name: mariadb
-    build: ./requirements/mariadb
+    image: mariadb
+    build:
+      context: ./requirements/mariadb
+      args:
+         - DB_NAME=${DB_NAME}
+         - DB_USER=${DB_USER}
+         - DB_PASSWORD=${DB_PASSWORD}
+         - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    env_file: .env
     #volumes allow to store in a persistent disk the content in a local disk
     #db_data is a volume created by docker directly
-    volumes:
-      - mariadb_vol:/var/lib/mysql
     networks:
       - inception_network
-    env_file:
-      - .env
-    restart: always
+    volumes:
+      - mariadb_vol:/var/lib/mysql
+    restart: unless-stopped
     #if there is any crash we restart the container automatically
-
 
   # #====WORDPRESS====
 
   wordpress:
-    depends_on:
-      - mariadb
     container_name: wordpress
     image: wordpress
     volumes:
       - wordpress_vol:/var/www/html
     env_file: .env
+    depends_on:
+      - mariadb
     networks:
       - inception_network
-    restart: always
+    restart: unless-stopped
 
+#=====NGINX======
+
+  nginx:
+    container_name: nginx
+    volumes:
+      - wordpress_vol:/var/www/html
+    depends_on:
+      - wordpress
+      - mariadb
+    build: ./requirements/nginx
+    networks:
+      - inception_network
+    ports:
+      - 443:443
+    restart: unless-stopped
 
 
 #Setting up the binding of the volumes with the correct container
