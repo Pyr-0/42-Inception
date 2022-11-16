@@ -35,7 +35,7 @@ services:
     container_name: wordpress
     image: wordpress
     volumes:
-      - wordpress_vol:/var/www/html
+      - wordpress_vol:/var/www/wordpress
     env_file: .env
     depends_on:
       - mariadb
@@ -47,11 +47,11 @@ services:
 
   nginx:
     container_name: nginx
-    # volumes:
-    #   - wordpress_vol:/var/www/html
-    # depends_on:
-    #   - wordpress
-    #   - mariadb
+    volumes:
+      - wordpress_vol:/var/www/wordpress
+    depends_on:
+      - wordpress
+      - mariadb
     build: ./requirements/nginx
     networks:
       - inception_network

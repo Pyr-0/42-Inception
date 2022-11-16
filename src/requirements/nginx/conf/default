@@ -6,7 +6,7 @@ server {
 	listen [::]:443 ssl;
 
      # tells the name(s) of our website
-     server_name mrojas-e.42.fr;
+     server_name mrojas_e.42.fr;
 
 	#Create the SSL certificates in your own folder
 	ssl_certificate		/etc/nginx/ssl/mrojas-e.crt;
@@ -19,13 +19,14 @@ server {
 	ssl_protocols		TLSv1.3;
 
 	#This is the index page and the directory where we get it from
-	root /var/www/html;
+	root /var/www/wordpress;
 	index index.php index.nginx-debian.html;
 
 
 	# Checks the existence of files
 	# Otherwise a 404 will be sent
 	location / {
+		root /var/www/wordpress;
 		try_files $uri $uri/ =404;
 	}
 

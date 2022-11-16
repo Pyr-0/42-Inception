@@ -20,7 +20,7 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 	#You could also save them in the ssl folder directly
 	# 	-out /etc/ssl/certs/mrojas-e.crt \
 	# -keyout /etc/ssl/private/mrojas-e.key \ 
-	-subj "/CN=mrojas-e.42.fr/"
+	-subj "/CN=mrojas_e.42.fr/"
 
 #the only port allowed gets exposed from the Docker file
 EXPOSE	443

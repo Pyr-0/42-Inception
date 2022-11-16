@@ -87,7 +87,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
   && mv wp-cli.phar /usr/local/bin/wp
 
 # Copy the .conf in the html directory
-COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 
 #Create the folder to enable php start
 RUN mkdir /run/php
@@ -98,8 +98,7 @@ RUN chmod +x /usr/local/bin/config.sh
 ENTRYPOINT ["/usr/local/bin/config.sh"]
 
 #We go the html directory
-WORKDIR /var/www/html/
-
+WORKDIR /var/www/wordpress
 #We expose the 9000 port
 EXPOSE 9000
 
