@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
 #	Remove the original config file from mariadb and replace it with your own
 RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
+RUN mysql_install_db 
 
 ARG DB_NAME=${DB_DATABASE}
 ARG DB_USER=${DB_USER}
@@ -26,6 +27,7 @@ COPY ./tools/create_user.sh /
 
 #RUN chmod +x ./create_user.sh 
 RUN bash ./create_user.sh
+RUN service mysql stop
 
 
 #The CMD command will run nginx, but since it runs in the background we need to 

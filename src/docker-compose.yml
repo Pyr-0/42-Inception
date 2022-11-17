@@ -2,7 +2,6 @@ version: '3.5'
 
 networks:
   inception_network:
-    driver: bridge
 
 
 services:
@@ -28,17 +27,21 @@ services:
       - mariadb_vol:/var/lib/mysql
     restart: unless-stopped
     #if there is any crash we restart the container automatically
-
+    healthcheck:
+      test: "echo hello"
   # #====WORDPRESS====
 
   wordpress:
     container_name: wordpress
     image: wordpress
+    build:
+      context: ./requirements/wordpress
     volumes:
       - wordpress_vol:/var/www/wordpress
     env_file: .env
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     networks:
       - inception_network
     restart: unless-stopped
@@ -51,7 +54,6 @@ services:
       - wordpress_vol:/var/www/wordpress
     depends_on:
       - wordpress
-      - mariadb
     build: ./requirements/nginx
     networks:
       - inception_network

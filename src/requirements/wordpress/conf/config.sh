@@ -1,6 +1,8 @@
 #!/bin/bash
 cd /var/www/wordpress
 
+wp core download "--allow-root"
+
 wp core config	"--dbhost=$WORDPRESS_DB_HOST" \
 				"--dbname=$WORDPRESS_DB_NAME" \
 				"--dbuser=$WORDPRESS_DB_USER" \
