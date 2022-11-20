@@ -1,8 +1,7 @@
 version: '3.5'
 
 networks:
-  inception_network:
-
+  inception:
 
 services:
 
@@ -22,13 +21,13 @@ services:
     #volumes allow to store in a persistent disk the content in a local disk
     #db_data is a volume created by docker directly
     networks:
-      - inception_network
+      - inception
     volumes:
       - mariadb_vol:/var/lib/mysql
     restart: unless-stopped
     #if there is any crash we restart the container automatically
-    healthcheck:
-      test: "echo hello"
+    # healthcheck:
+    #   test: "echo hello"
   # #====WORDPRESS====
 
   wordpress:
@@ -40,10 +39,10 @@ services:
       - wordpress_vol:/var/www/wordpress
     env_file: .env
     depends_on:
-      mariadb:
-        condition: service_healthy
+      - mariadb
+        # condition: service_healthy
     networks:
-      - inception_network
+      - inception
     restart: unless-stopped
 
 #=====NGINX======
@@ -56,7 +55,7 @@ services:
       - wordpress
     build: ./requirements/nginx
     networks:
-      - inception_network
+      - inception
     ports:
       - 443:443
     restart: unless-stopped

@@ -1,20 +1,5 @@
-# all:
-# 	docker-compose --env-file ./src/.env -f ./src/docker-compose.yml up -d --build
+#===========COLORS=========#
 
-# down:
-# 	docker-compose --env-file ./src/.env -f ./src/docker-compose.yml down
-
-# re:
-# 	docker-compose --env-file ./src/.env -f src/docker-compose.yml up -d --build
-
-# clean:
-# 	@docker stop $$(docker ps -qa);\
-# 	docker rm $$(docker ps -qa);\
-# 	docker rmi -f $$(docker images -qa);\
-# 	docker volume rm $$(docker volume ls -q);\
-# 	docker network rm $$(docker network ls -q);\
-
-# .PHONY: all re down clean
 
 BLACK		:= $(shell tput -Txterm setaf 0)
 RED			:= $(shell tput -Txterm setaf 1)
