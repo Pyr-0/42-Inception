@@ -280,6 +280,7 @@ ______GENERAL______
 ______DOCKER______
 
 Learn about Docker
+- https://yannmjl.medium.com/what-is-docker-in-simple-english-a24e8136b90b
 - https://www.youtube.com/watch?v=eGz9DS-aIeY
 Learn how to make a Docker-compose file
 - https://www.youtube.com/watch?v=DM65_JyGxCo 
@@ -289,6 +290,7 @@ Learn how to make a Docker-compose file
 
 Using variables in Docker compose
 - https://betterprogramming.pub/using-variables-in-docker-compose-265a604c2006 
+- https://www.educative.io/blog/docker-compose-tutorial
 
 Some more Docker knowledge 
 - https://blog.sourcerer.io/a-crash-course-on-docker-learn-to-swim-with-the-big-fish-6ff25e8958b0

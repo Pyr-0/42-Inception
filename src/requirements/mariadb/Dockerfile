@@ -1,6 +1,5 @@
 #=========MariaDB DOCKERFILE===========
 
-
 # Tell the system where from to build the image, in which OS to build upon
 FROM debian:buster
 
@@ -8,7 +7,7 @@ FROM debian:buster
 EXPOSE	3306
 
 
-# install nginx and update the system (debian is limited with its package manager so run apt-get
+#	DEPENDANCIES
 RUN apt-get update && apt-get install -y \
 	mariadb-server mariadb-client && \
 	rm -rf /var/lib/apt/lists/*
@@ -18,14 +17,16 @@ RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
 RUN mysql_install_db 
 
+# Set the ARG values where the database will take reference from
 ARG DB_NAME=${DB_DATABASE}
 ARG DB_USER=${DB_USER}
 ARG DB_PASSWORD=${DB_PASSWORD}
 ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-# Copy our config file in the nginx config folder
+
+# Copy the script to create your user in your desired folder where you will run it from
 COPY ./tools/create_user.sh /
 
-#RUN chmod +x ./create_user.sh 
+#RUN chmod +x ./create_user.sh  to give permission
 RUN bash ./create_user.sh
 RUN service mysql stop
 
