@@ -134,6 +134,7 @@ Tis is a no-brainer, but still remember to do it, just `install git` on your VM 
 ***<h3>Setting up a Virtual Machine</h3>***
 
 The first step for this project is obviously to get your hands on a ```virtual machine``` with any Linux distribution, my choise was to work on the last version of __UBUBTU__ . In this machine you will need to install ``` Docker && Docker-compose``` and setup the according ```sudo permissions``` necessary for your user to work. 
+
 1. _<h3><p align="left" >Install and configure your ssh in your VM</h3>_
 
 ```shell
@@ -205,7 +206,7 @@ Docker Compose is a Docker tool used to define and run multi-container applicati
 Think of Docker-compose as the "Cook" that uses "Recipes"(our Docker Files) to create "Dishes"(our Containers)
 
 
-```docker
+```Docker
 # We start with the version of our docker compose
 version: '3.5'
 # create a Network to conect your services
@@ -284,6 +285,7 @@ then use the following commands "
 ```
 - __Nginx Docker-file__ \
 Be sure to run nginx in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
+
 ```Docker 
 CMD ["nginx", "-g" "daemon_off" 
 ```
