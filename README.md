@@ -31,45 +31,109 @@ which simply stands for Linux, NGINX (pronounced Engine X), MySQL, and PHP-FPM.
 
 ## <u>🤖 Before you start: Suggestions <a name = "suggestions"></a></u>
 
-This project carries a lot of diverse topics, and with them <u>A LOT</u>  of documentation, for that reason I created this guide, to have the [Resources](#resources) necessary for you to get some information about each topic and hopefully save some hours and avoid falling down the rabbit hole of material that one can find online. \
+This project carries a lot of diverse topics, and with them <u>A LOT</u>  of documentation, for that reason I created this guide, to have the <u>[Resources](#resources)</u> necessary for you to get some information about each topic and hopefully save some hours and avoid falling down the rabbit hole of material that one can find online. \
 For the order of the project I want to suggest some points that helped me to not get lost, learn comfortably and move forward quicker.\
 \
 (this are tips that help me but are not necessary to follow, so feel free to find what its best for you, ___this is not a copy-paste guide so you will still have to figure some things out__ ✌🏼) 
 
-1. <u>Use a SSH connection</u> between your VM and your work station<sup> [learn how](#ssh)</sup>\
-(___specially if you are working at 42 campus with limited ram on your VM___), For this my choice was to use the extension  for __Visual Studio code__ called `Remote - SSH`. 
+<div>
+
+### 1. <u>Use a SSH connection between your VM and your work station</u><sup> [learn how](#ssh)</sup>
+(specially if you are working at 42 campus with limited ram on your VM), For this my choice was to use the extension  for __Visual Studio code__ called __Remote - SSH__
  <br>[  [Download it here](#remotessh)</sup> ]
 
-<p align="center"> <img width=650 src= "./assets/ssh-readme.gif"> </p>
+<p align="left"> <img width=100% src= "./assets/ssh-readme.gif"> </p>
 
-This will make it  easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.<br> 
+	DISCLAIMER!
+	When using this extension the ssh connection over VS code will not have root permission to write and save files on your VM machine, so for this we can do 2 things, either install the extension for saving files over the remote desktop as root called "Save as Root"	or we follow a process to link a public key to our VM machine.
+</div>
 
+<div>
 
-2. <u>_Do ONE container at a time._</u> It will be easier to handle errors and to give order to the topics you will learn, the logic I followed was:
+## - Install the extension 
+The extension is called "Save to root" and you can download it here  https://marketplace.visualstudio.com/items?itemName=yy0931.save-as-root)
+
+## - Link your remote environment with a public key 
+This is more work but less to worry afterwards, so do the following:
+
+MAC
+- virtualBox Settings -> Network -> Adapter1 : Bridged Adapter + Allow All
+VM
+- Sudo systemctl status ssh = should be “active(running)” 
+
+MAC
+- cd ~/.ssh
+- ssh-keygen -t rsa = generates new key (call it “vm_key”, when prompted) and leave empty the other fields
+- ssh-copy-id -i vm_key.pub username@ipaddress
+
+VM
+- Sudo nano /etc/ssh/sshd_config
+- Uncomment the line “PubkeyAuthentication yes”
+- Sudo nano /etc/ssh/ssh_config
+- Add following 2 lines to the end: \
+	*__Host * \
+	IdentityFile ~/.ssh/vm_key__*
+
+MAC
+- In VS Code, click on Remote ssh extension
+- add a new remote connection using the following SSH Connection command \
+	*__ssh -i ~/.ssh/vm_key username@ipaddress__*
+- On the settings of your ssh connection the file should look something like this: \
+e.g.:\
+__Host 10.29.247.138
+	HostName 10.29.247.138 \
+	Port 22\
+	User rofl\
+	IdentityFile ~/.ssh/vm_key \
+This will make it  easier to work on the project if you like, for example, opening multiple files while also navigating through the folder structure of your machine.__
+<br> 
+
+</div>
+
+### 2. <u>_Do ONE container at a time_</u> 
+It will be easier to handle errors and to give order to the topics you will learn, the logic I followed was:
 	
 	- [Nginx](#nginx)\
-	Learn first how to launch a docker image && to execute this image without using docker-compose\
-    Learn How to display an html page on http://localhost:80"\
-    Learn how to display an html page with SSL on http://localhost:443"
+		Learn first how to launch a docker image && to execute this image without 
+		using docker-compose.
+    	Learn How to display an html page on http://localhost:80"
+    	Learn how to display an html page with SSL on http://localhost:443"
 
-	- [WordPress+PHP](#wordpress)\
-	You can begin from here the docker-compose file, you don't need it before
 	- [MariaDB](#mariadb)
+		learn to create a database via command line
+		learn to show databases
+		learn to access databases remotely
+		You can begin from here the docker-compose file, you don't need it before
+
+	- [WordPress+PHP](#wordpress)
+		learn to use WP CLI and use it to create users
+		learn how to use the Wordpress dashboard
 	- [Bonus](#bonus)
 
-3. ___Check how other people solved this exercise___, there are many and very different ways to approach the tasks of the project, it all comes down to how each person learned to write in `bash` and on which OS they run their VM on, this will determine which commands differ from their syntax even if they do the same. (sounds basic, but many people with few experience in deep UNIX language might struggle with how this). Reading other peoples solution gives a relationship with what does and doesn't `THIS PROJECT` really needs and what is standard in the use of the technologies, packages and tools used and learned here. \
-\
+### 3. ___Check how other people solved this exercise___
+there are many and very different ways to approach the tasks of the project, it all comes down to how each person learned to write in `bash` and on which OS they run their VM on, this will determine which commands differ from their syntax even if they do the same. (sounds basic, but many people with few experience in deep UNIX language might struggle with this). \
+Reading other peoples solution gives perspective on what __THIS PROJECT__ really needs and what to skip. \
 In short, if you don't know how to do something, see what others do, try to understand it and then write your approach.
 
-4. ___Speed-run the project___ 🤪 (AKA the super alternative learning method)\
+### 4. ___Speed-run the project___ 🤪 
+(AKA the super alternative learning method)
+
 Weird suggestion I know, but it has proven me to work to a certain extent with other projects. In this case I suggest you to do this <u>ONLY</u> if you feel like understanding and reinforcing on what you just did. \
 No need to write all files from the beginning, I mean, you already did right?, so its a matter of straight checking boxes and using the material you already created
+
+For Speed-run examples of what this project needs (but using the docker hub ) check this:
+
+- https://www.youtube.com/watch?v=P_iqK_7qiZw
+
+### 5. ___PUSH YOUR WORK___ 
+Tis is a no-brainer, but still remember to do it, just `install git` on your VM and push your work after each session, if for any reason your VM dies, your whole work will be safe on git. ✌🏼
+
 
 ## 🎬 <u>Getting Started <a name = "getting_started"></a></u>
 
 ***<h3>Setting up a Virtual Machine</h3>***
 
-The first step for this project is obviously to get your hands on a ```virtual machine``` with any Linux distribution. In this machine you will need to install ``` Docker && Docker-compose``` and setup the according ```sudo permissions``` necessary for your user to work. 
+The first step for this project is obviously to get your hands on a ```virtual machine``` with any Linux distribution, my choise was to work on the last version of __UBUBTU__ . In this machine you will need to install ``` Docker && Docker-compose``` and setup the according ```sudo permissions``` necessary for your user to work. 
 1. _<h3><p align="left" >Install and configure your ssh in your VM</h3>_
 
 ```shell
@@ -96,21 +160,21 @@ The first step for this project is obviously to get your hands on a ```virtual m
 
 3. _<h3><p align="left" >Configure user groups and permissions VM</h3>_
 ```shell
-> sudo adduser user_name				# If needed add a new user
+> su									# Switch to root user
 > sudo usermod -aG sudo user_name			# Add user to sudo group
 > sudo usermod -aG docker user_name			# add user to docker group
 ````
 
 ***<h3>Getting familiar with Docker</h3>***
 
-This project is mainly about learning to use Docker so its good to start getting familiar with what it is and the common commands to use it. \
-Docker is a tool designed to make it easier to create, deploy, and run applications by using containers. Containers allow a developer to package up an application with all of the parts it needs, such as libraries and other dependencies, and ship it all out as one package.<sup>[Learn more](#learnmore2) </sup> 
+This project is mainly about learning to use Docker and Docker-compose so its good to start getting familiar with what it is and the common commands to use it. \
 
-<br>
+Docker is a tool designed to make it easier to create, deploy, and run applications by using containers. Containers allow a developer to package up an application with all of the parts it needs, such as libraries and other dependencies, and ship it all out as one package.<sup>[Learn more](#learnmore2) </sup> 
 
 In order to build our containers, each will need a set of instructions that can install the corresponding dependencies for each Service to run and this instructions are written in a file called `Dockerfile`
 
 **DOCKERFILE\'S  MAIN SYNTAX**:<br>
+
 ```Docker
 FROM		# Instruction used to specify the valid docker image name.
 		# So specified Docker Image will be downloaded from the
@@ -132,8 +196,66 @@ EXPOSE		# Instruction is used to inform about the network ports that the contain
 
 CMD		# Allows you to set a default command which will be executed only when
 		# you run a container without specifying a command.
+ENV		# Set Environment variables permanently on the container
 ```
-It will be important that you start getting familiar with Docker and with the syntax of Docker Files and of Docker-compose. this two files are basically the ```Core``` of your project.
+### **Docker-compose MAIN SYNTAX**:
+
+Docker Compose is a Docker tool used to define and run multi-container applications. With Compose, you use a YAML file to configure your application’s services and create all the app’s services from that configuration.
+
+Think of Docker-compose as the "Cook" that uses "Recipes"(our Docker Files) to create "Dishes"(our Containers)
+
+
+```docker
+# We start with the version of our docker compose
+version: '3.5'
+# create a Network to conect your services
+networks:
+  my_network:
+# we declaire the services we will build
+services:
+	my_service:
+    	# We give the Path to our dockerfile.
+    	# '.' represents the current directory in which
+    	# docker-compose.yml is present.
+    	build: .
+
+		# image to fetch from docker hub 
+		#if built locally image will just give a name to your image
+		image: image_name:version
+
+	    # Mapping of container port to host
+		ports:
+		- "5000:5000"
+
+		# create a dependancy on another container for the containers to
+		# have an order of creation
+		depends_on:
+			- other_container
+	    # Mount volume (the path to a local machine folder)
+		# where changes to our containers will be saved
+	    volumes:
+	      - "user_custome_vol_name:/path_for_files"
+
+		# Import a file with Environment variables
+		# containers will use these variables
+		# to start the container with these define variables. 
+		env_file: .env
+
+		#connect to your network
+		networks:
+			- my_network
+		# Set the arguments that will be used as variables in the container
+		# this will look into the .env file
+		args:
+			- MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+			- MYSQL_USER=${MY_SQL_USER}
+			- MYSQL_PASSWORD=${MYSQL_PASSWORD}
+		
+		# Restart the containers if needed
+		restart: unless-stopped
+```
+
+	It will be IMPORTANT that you start getting familiar with Docker and with the syntax of Docker Files and of Docker-compose. this two files are basically the ```Core``` of your project.
 
 ## Straight to the point 🎯<a name = "to_the_point"></a>
 
@@ -268,7 +390,7 @@ ______GENERAL______
 
 <a name="lemp">LEMP Stack deployment
 
-- https://www.digitalocean.com/community/tutorialshow-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-20-04
+- https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04
 
 <a name="ssh">How to SSH into your VS code
 - https://linuxhint.com/install-configure-linux-ssh/
@@ -291,6 +413,7 @@ Learn how to make a Docker-compose file
 Using variables in Docker compose
 - https://betterprogramming.pub/using-variables-in-docker-compose-265a604c2006 
 - https://www.educative.io/blog/docker-compose-tutorial
+- https://vsupalov.com/docker-env-vars/
 
 Some more Docker knowledge 
 - https://blog.sourcerer.io/a-crash-course-on-docker-learn-to-swim-with-the-big-fish-6ff25e8958b0
