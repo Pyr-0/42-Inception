@@ -60,6 +60,24 @@ services:
       - 443:443
     restart: unless-stopped
 
+#BONUS
+
+  ftp-server:
+    container_name: ftp-server
+    image: ftp
+    build: ./requirements/ftp
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    volumes:
+      - "wordpress_vol:/var/www/wordpress"
+    networks:
+      - inception
+    restart: always
+    environment:
+      FTP_USR: ${FTP_USR}
+      FTP_PWD: ${FTP_PWD}
+
 #volumes allow to store in a persistent disk the content in a local disk
 #Setting up the binding of the volumes with the correct container
 volumes:

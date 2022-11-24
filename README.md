@@ -206,7 +206,7 @@ Docker Compose is a Docker tool used to define and run multi-container applicati
 Think of Docker-compose as the "Cook" that uses "Recipes"(our Docker Files) to create "Dishes"(our Containers)
 
 
-```Docker
+```Docker-compose 
 # We start with the version of our docker compose
 version: '3.5'
 # create a Network to conect your services
