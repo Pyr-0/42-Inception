@@ -431,3 +431,10 @@ Use TSL V1.3 ONLY
 
 - https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose
 - https://www.cloudbooklet.com/install-wordpress-with-docker-compose-nginx-apache-with-ssl/
+
+*______BONUS STUFF______*
+
+
+*______REDIS______*
+
+- https://www.youtube.com/watch?v=jZo97S85gWE

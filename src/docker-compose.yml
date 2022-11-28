@@ -78,6 +78,37 @@ services:
       FTP_USR: ${FTP_USR}
       FTP_PWD: ${FTP_PWD}
 
+#======REDIS=========
+
+  # redis:
+  #   build: requirements/redis
+  #   container_name: redis
+  #   image: redis
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - inception
+  #   restart: always
+  #   environment:
+  #     REDIS_PWD: ${REDIS_PWD}
+
+  redis:
+    container_name: redis
+    image: redis
+    depends_on:
+      - wordpress
+    build:
+      context: requirements/redis
+    networks:
+      - inception
+    volumes:
+      - wordpress_vol:/var/www/wordpress
+    expose:
+      - "6379"
+    env_file:
+      - .env
+    restart: always
+
 #volumes allow to store in a persistent disk the content in a local disk
 #Setting up the binding of the volumes with the correct container
 volumes:
