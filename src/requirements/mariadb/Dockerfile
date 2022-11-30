@@ -17,13 +17,12 @@ RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
 RUN mysql_install_db 
 
-# Set the you can use ENV to
-# set permanently the environment variables during build time, 
-# if you use this then take the out "args" from the docker-compose.yml
-# ENV DB_NAME=${DB_DATABASE}
-# ENV DB_USER=${DB_USER}
-# ENV DB_PASSWORD=${DB_PASSWORD}
-# ENV DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+# You can use ENV to set permanently the environment variables during build time, 
+# if you use this then take the out "args" from the docker-compose.yml, else use ARG instead
+ARG DB_NAME=${DB_DATABASE}
+ARG DB_USER=${DB_USER}
+ARG DB_PASSWORD=${DB_PASSWORD}
+ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
 
 # Copy the script to create your user in your desired folder where you will run it from
 COPY ./tools/create_user.sh /

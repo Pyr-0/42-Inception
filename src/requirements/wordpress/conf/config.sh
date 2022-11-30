@@ -20,13 +20,13 @@ wp core install "--title=$WP_TITLE" \
 wp user create $WP_USER $WP_USER_MAIL --role=author --user_pass=$WP_USER_PASSWORD --allow-root
 
 wp config set WP_REDIS_HOST redis --allow-root #I put --allowroot because i am on the root user on my VM
-  	wp config set WP_REDIS_PORT 6379 --raw --allow-root
- 	wp config set WP_CACHE_KEY_SALT $DOMAIN_NAME --allow-root
-  	#wp config set WP_REDIS_PASSWORD $REDIS_PASSWORD --allow-root
- 	wp config set WP_REDIS_CLIENT phpredis --allow-root
-	wp plugin install redis-cache --activate --allow-root
-    wp plugin update --all --allow-root
-	wp redis enable --allow-root
+wp config set WP_REDIS_PORT 6379 --raw --allow-root
+wp config set WP_CACHE_KEY_SALT $DOMAIN_NAME --allow-root
+#wp config set WP_REDIS_PASSWORD $REDIS_PASSWORD --allow-root
+wp config set WP_REDIS_CLIENT phpredis --allow-root
+wp plugin install redis-cache --activate --allow-root
+wp plugin update --all --allow-root
+wp redis enable --allow-root
 # run php-fpm7.3 listening for CGI request 
 #Launch PHP FPM in foreground and ignore deamonize from conf file (-F)
 php-fpm7.3 -F

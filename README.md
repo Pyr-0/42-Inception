@@ -19,8 +19,11 @@
 - [About](#about)
 - [Before you start: Suggestions](#suggestions)
 - [Getting Started](#getting_started)
+- [Commands Cheat-Sheet](#cheat_sheet)
 - [Straight to the point](#to_the_point)
 - [Nginx](#nginx)
+- [MariaDB](#mariadb)
+- [Wordpress](#wordpress)
 - [Resources](#resources)
 
 ## <u>📓 About <a name = "about"></a></u>
@@ -93,22 +96,28 @@ This will make it  easier to work on the project if you like, for example, openi
 ### 2. <u>_Do ONE container at a time_</u> 
 It will be easier to handle errors and to give order to the topics you will learn, the logic I followed was:
 	
-	- [Nginx](#nginx)\
+	- [Nginx]
 		Learn first how to launch a docker image && to execute this image without 
 		using docker-compose.
     	Learn How to display an html page on http://localhost:80"
     	Learn how to display an html page with SSL on http://localhost:443"
 
-	- [MariaDB](#mariadb)
+	- [MariaDB]
 		learn to create a database via command line
 		learn to show databases
 		learn to access databases remotely
 		You can begin from here the docker-compose file, you don't need it before
 
-	- [WordPress+PHP](#wordpress)
+	- [WordPress+PHP]
 		learn to use WP CLI and use it to create users
 		learn how to use the Wordpress dashboard
-	- [Bonus](#bonus)
+
+	- [Bonus](from easy to hard IMO)
+		FTP Server
+		Redis cache for Wordpress
+		Static Webpage
+		Own Service
+		Adminer
 
 ### 3. ___Check how other people solved this exercise___
 there are many and very different ways to approach the tasks of the project, it all comes down to how each person learned to write in `bash` and on which OS they run their VM on, this will determine which commands differ from their syntax even if they do the same. (sounds basic, but many people with few experience in deep UNIX language might struggle with this). \
@@ -262,6 +271,8 @@ services:
 
 Alright! lets do this! 💪🏼
 
+<div align =left>
+
 ## <u>_Nginx_</u><br>
 
 -  __What you need to know about NginX:__ \
@@ -275,11 +286,10 @@ The following commands will get the Nginx server running and it can be tested by
 > sudo apt update 
 > sudo apt -y install nginx
 > sudo systemctl enable nginx	#Enables Nginx to automatically start at boot time.
-_____________________________________________________________________________________
+```
+Installing Nginx in a container makes use of most of this commands but needs a personalized configuration via config files. but if you simply want to test that it works outside a container then use the following commands"
 
-> " installing Nginx in a container makes use of most of this commands but needs a personalized
-configuration via config files. but if you simply want to test that it works outside a container
-then use the following commands "
+```sh
 > sudo apt install ufw
 > sudo sudo ufw allow 'Nginx HTTP'
 ```
@@ -291,28 +301,43 @@ CMD ["nginx", "-g" "daemon_off"
 ```
  in the CMD in order for nginx to stay run in debug mode (foreground) and not as a daemon, so that Docker can track the process properly (otherwise your container will stop immediately after starting)!
 
-- __*Useful commands*__:  
+
+## Commands Cheat-Sheet<a name = "cheat_sheet"></a>
+- __**__:  
 If these commands ask for sudo, simply add the user to the sudo and docker group
 
 ```shell
+>	#DOCKER / COMPOSE
 > docker-compose up				# runs the docker-compose file (builds all)
+> docker-compose down				# Stops all containers and deletes them
 > docker built . -t name_of_image		# builds the docker image
 > docker images					# Shows images built
 > docker ps					# Shows containers running
-> docker run -p 443:443 imageName		# To run and test without docker compose
-> systemctl status ufw				# check if the firewall is up and active
+> docker rm -f $(docker ps -qa)			# Delete All Containers
+> docker rmi -f $(docker images -qa)	# Delete All Images
+> docker stop `docker ps -qa`		# Stop all Containers
+> docker volume rm `docker volume ls -q`	#Delete All Volumes
+> docker logs container_name		# Debug Log of a container
+> docker exec -it container_name bash	# Open shell of a container
+
+>	#NGINX
+> cat /etc/nginx/nginx.conf			# this is the original config file of nginx
 > systemctl status nginx			# checks if nginx server is up and running
 > service nginx start				# starts the server
 > service nginx stop				# stops the server 
-> cat /etc/nginx/nginx.conf			# this is the original config file of nginx
+> docker run -p 443:443 imageName		# To run and test without docker compose
 
->"BE CAREFUL WHEN BUILDING IMAGES TO ALSO DELETE THEM TO SAVE SPACE, USE THIS COMAND TO DO THAT"
-
-> docker rmi -f $(docker images -qa)
-> docker rm -f $(docker ps -qa)
-
+> systemctl status ufw				# check if the firewall is up and active
 ```
+</div>
 
+- *__SSL CERTIFICATE__*
+
+We can create a self-signed key and certificate pair with OpenSSL in a single command:
+
+```sh
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+```
 - __*TLS: configure TLS 1.2 and 1.3*__:
 
 ```TLS``` stands for ```Transport Layer Security ``` is a protocol for securing communication between the ```client``` and the ```Server```
@@ -320,24 +345,73 @@ If these commands ask for sudo, simply add the user to the sudo and docker group
 
 In order to set the  TLS version we have to add  ___``` ssl_protocols TLSv1.2; ```___ into our ```nginx.conf```
 
-## 💾 <u>_Wordpress_</u><br>
-What are the steps to create your Wordpress
+## 💾 <u>_MariaDB_</u><br><a name = "mariadb"></a>
+
+-  __What you need to know about MariaDB:__ \
+MariaDB will be the database to store information about our Wordpress users and settings.\
+ In this section we have to create the Mariadb image and create 2 users.
+
+
+-  __Installation:__
+
+```shell
+> sudo apt-get update				# Run updates
+> sudo apt-get install mariadb-server	# install Data base Service
+> sudo apt-get install mariadb-client	# install Data base Service
+> sudo mysql_secure_installation	# Ensure secure connection to data base
+```
+What are the steps to create your MariaDB Container: 
+
+## Create you dockerfile image
+- Download mariadb-client and mariadb-server
+- Expose port 3306
+- Remove the original config file from mariadb and replace it with your own
+- Set the ARG values to your database Environment Variables
+- Copy the script you made on the container and run it
+- Stop the mysql service
+- Run the command mysql_safe
+
+## Create a script for configuring the database 
+- Use the `mysql -u root -e`to run the database as root user and execute commands to create the data base (name, user, password, grant privileges )
+<sup>[Learn how](#mariahow)</sup>
+
+### <u>How to Test your Database container </u>
+
+- Login into your container's shell and run the service mariadb using the user root and the password, then check for the existing databases and users
+```shell
+	> docker exec -it mariadb
+	> mariadb -u root -p your_pass
+	> SHOW DATABASES;
+	> SELECT User, Db, Host from mysql.db;
+```
+
+
+<br>
+
+## 📄 <u>_Wordpress_</u><br><a name = "wordpress"></a>
+
+-  __What you need to know about Wordpress :__\
+WordPress is an open-source content management system (CMS). It’s a popular tool for individuals without any coding experience who want to build websites and blogs.
+
+What are the steps to create your Wordpress Container 
 
 ## Create you dockerfile image
 - Download php-fpm
 - Copy your own www.conf file into php/7.3/fpm/pool.d/
+- Download Wordpress-CLI
+- Move files from Wordpress in the `/var/www/` directory (either `/html` or your own)
 - Create the php directory to enable php-fpm to run
 - Copy the script and launch it
-- Go to the html directory
+- Make the working directory the one of your WP files
+
+## Create a script for creating the WP core setup
+- Give the 4 environmental variables for Wordpress
+- Use WP-CLI commands to create admin user and database names
+- create another user who is not an admin using WP-CLI command
 - Launch php-fpm
 
-## Create a script
-- Download Wordpress
-- Create the configuration file of Wordpress
-- Move files from Wordpress in the html directory
-- Give the 4th environmental variables for Wordpress
-
-## Create a www.conf 
+## Create the configuration file of Wordpress
+-  Create a www.conf file
 You need to edit www.conf and place it in `/etc/php/7.3/fpm/pool.d` and `wp-content.php` to disable (7.3 is the usual version of php on a 42 VM) access to the Wordpress installation page when you access your site at https://login.42.fr
 - Put listen = 0.0.0.0:9000 to listen to all ports
 - Increase the number for the pm values in order to avoid a 502 page
@@ -361,44 +435,105 @@ __Installation:__
 	curl
 ```
 
-## <u>_MariaDB_</u><br>
-
--  __What you need to know about MariaDB:__ \
+### <u>How to Test your Wordpress container </u>
 
 
--  __Installation:__ \
 
-```shell
-> sudo apt update				# Run updates
-> sudo apt install mariadb-server	# install Data base Service
-> sudo mysql_secure_installation	# Ensure secure connection to data base
-```
-
-
-. . . To be continued 
-<br>
 <br>
 
-<!-- <p> <h2 align="center"><u>YOU MADE IT THROUGH <br> CONGRATULATIONS! 🎉<u/></h2>
+<p> <h2 align="center"><u>YOU MADE IT THROUGH <br> CONGRATULATIONS! 🎉</u></h2>
 <p align="center">
   <a href="" rel="noopener">
  <img src="https://tech.osteel.me/images/2020/03/04/docker-part-1-04.gif" alt="Project logo"></a>
 
-<br> -->
+<br>
 
-## Resources <a name = "resources"></a>
+<div align=center>
 
-______GENERAL______ 
+# <u> _Bonus Part_  <br></u>
 
-<a name="lemp">LEMP Stack deployment
+</div>
+
+Feeling perky? not enough with 3 Containers? How about 2 more? 
+
+## 📡 <u>_FTP Server_</u> 
+<br>
+
+-  __What you need to know about FTP SERVERS :__ 
+
+An FTP Server, in the simplest of definitions, is a software application that enables the transfer of files from one computer to another. FTP (which stands for “File Transfer Protocol”) is a way to transfer files to any computer in the world that is connected to the Internet. For Wordpress it allows to modify easily your files like the Wordpress files or your code.
+
+
+-  __Installation:__
+
+```shell
+> sudo apt-get update				# Run updates
+> sudo apt-get install -y vsftpd	# install Data base Service
+```
+-  __Config file:__
+
+After installing the `vsftpd` service, you can find the default configuration file at the `/etc/vsftpd/vsftpd.conf` directory.
+
+The variables that are set are sufficient for the ftp to work, but since you have to use the Wordpress directory, you will have to change the attribute `local_root` to your Wordpress directory. Any additional variable for our specific purpose of the Inception Project eludes my awareness, so experiment and check for referents of configurations ✌🏼.
+
+-  __Wordpress Config file:__
+
+
+### <u>How to Test your FTP server </u>
+<br>
+
+There are multiple ways to check if your server works:
+
+<div align="left">
+
+- *_Check inside your container that the service is active_*
+<br>
+
+```sh
+#If you want to test your container log int your containers shell using this command
+
+> docker exec -it containername bash
+
+# Now check if the service ftp is up and running
+
+> service vsftpd status 
+
+# You should get the following
+# [ ok ] FTP server is running.
+```
+- *_Use the application __FILEZILLA__ (download it fro Manage Software Center) on your MAC or VM to test and visualize your file system_*
+
+- Use the FTP address in any browser by typing the following: `ftp://your_VM_ip_address`  and follow the POP-UP message that will open a folder with the folder you created for your FTP server.
+
+- *_Connect via terminal:_*
+
+```sh
+	# use the command ftp followed by username and localhost and the ftp port
+	> ftp username@localhost 21
+```
+</div>
+
+### <u>How to Test your Redis Container  </u>
+
+ ```sh
+	> redis-cli -h localhost -p 6379 ping
+```
+## <u>Resources <a name = "resources"></a></u>
+
+______GENERAL KNOWLEDGE______ 
+
+<a name="lemp"></a>
+LEMP Stack deployment
 
 - https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04
 
-<a name="ssh">How to SSH into your VS code
+<a name="ssh"></a>
+How to SSH into your VS code
 - https://linuxhint.com/install-configure-linux-ssh/
 - https://adamtheautomator.com/vs-code-remote-ssh
 
-<a name="remotessh">VS code Extension for remote SSH connection 
+<a name="remotessh"></a>
+VS code Extension for remote SSH connection 
 - https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
 
 ______DOCKER______
@@ -409,7 +544,8 @@ Learn about Docker
 Learn how to make a Docker-compose file
 - https://www.youtube.com/watch?v=DM65_JyGxCo 
 
-<a name="learnmore1">Learn about `Dockerfile` commands and Syntax
+<a name="learnmore1"></a>
+Learn about `Dockerfile` commands and Syntax
 - https://www.learnitguide.net/2018/06/dockerfile-explained-with-examples.html
 
 Using variables in Docker compose
@@ -420,17 +556,48 @@ Using variables in Docker compose
 Some more Docker knowledge 
 - https://blog.sourcerer.io/a-crash-course-on-docker-learn-to-swim-with-the-big-fish-6ff25e8958b0
 
-______NGINX______
+*______NGINX______*
 
+Beginners guide:
 - http://nginx.org/en/docs/beginners_guide.html
+
+Certificates:
 - https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
-Use TSL V1.3 ONLY
+
+Use TSL V1.3 ONLY:
 - https://www.cyberciti.biz/faq/configure-nginx-to-use-only-tls-1-2-and-1-3/
+
+How to configure php on Nginx :
+- https://www.dreamhost.com/blog/guide-to-wp-cli/#:~:text=The%20WP%2DCLI%20is%20a,faster%20using%20the%20WP%2DCLI.
+- https://www.digitalocean.com/community/tutorials/understanding-and-implementing-fastcgi-proxying-in-nginx
+
+*_______MariaDB_______*
+
+<a name="mariahow"></a>
+
+Create a Database via CLI
+- https://www.inmotionhosting.com/support/server/databases/create-a-mysql-database/
+
+Connect to mariadb: 
+
+- https://www.mariadbtutorial.com/getting-started/connect-to-mariadb/
 
 *______WORDPRESS______*
 
+What is Wordpress:
+- https://kinsta.com/knowledgebase/what-is-wordpress 
+
+How to install it :
 - https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-docker-compose
+
+How to install it in a docker Container:
 - https://www.cloudbooklet.com/install-wordpress-with-docker-compose-nginx-apache-with-ssl/
+
+How to use the WP-CLI (Command line):
+- https://www.dreamhost.com/blog/guide-to-wp-cli/#:~:text=The%20WP%2DCLI%20is%20a,faster%20using%20the%20WP%2DCLI.
+
+-https://make.wordpress.org/cli/handbook/guides/installing/
+
 
 *______BONUS STUFF______*
 

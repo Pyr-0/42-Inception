@@ -3,7 +3,7 @@ FROM debian:buster
 
 EXPOSE 6379
 
-RUN	apt-get update && apt-get upgrade && apt-get  install -y redis && \
+RUN	apt-get update && apt upgrade && apt  install -y redis && \
 	rm -rf /var/lib/apt/lists/*
 
 

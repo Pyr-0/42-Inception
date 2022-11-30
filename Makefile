@@ -28,7 +28,7 @@ up:
 debug:
 	@echo "$(GREEN)Building files for volumes ... $(RESET)"
 	@echo "$(GREEN)Building containers with log information ... $(RESET)"
-	@docker-compose --env-file ./src/.env -f $(COMPOSE_FILE) up -d --verbose up
+	@docker-compose --env-file ./src/.env -f $(COMPOSE_FILE) up --verbose
 
 list:	
 	@echo "$(PURPLE)Listing all containers ... $(RESET)"

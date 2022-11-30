@@ -60,14 +60,16 @@ services:
       - 443:443
     restart: unless-stopped
 
-#BONUS
+#===============BONUS PART====================
+
+#====== FTP SERVER =========
 
   ftp-server:
     container_name: ftp-server
     image: ftp
-    build: ./requirements/ftp
+    build: ./requirements/bonus/ftp
     ports:
-      - "21:21"
+      - "28:28"
       - "21100-21110:21100-21110"
     volumes:
       - "wordpress_vol:/var/www/wordpress"
@@ -78,19 +80,7 @@ services:
       FTP_USR: ${FTP_USR}
       FTP_PWD: ${FTP_PWD}
 
-#======REDIS=========
-
-  # redis:
-  #   build: requirements/redis
-  #   container_name: redis
-  #   image: redis
-  #   ports:
-  #     - "6379:6379"
-  #   networks:
-  #     - inception
-  #   restart: always
-  #   environment:
-  #     REDIS_PWD: ${REDIS_PWD}
+#====== REDIS =========
 
   redis:
     container_name: redis
@@ -98,7 +88,7 @@ services:
     depends_on:
       - wordpress
     build:
-      context: requirements/redis
+      context: requirements/bonus/redis
     networks:
       - inception
     volumes:
@@ -110,7 +100,7 @@ services:
     restart: always
 
 #volumes allow to store in a persistent disk the content in a local disk
-#Setting up the binding of the volumes with the correct container
+#Here we are setting up the binding of the volumes with the correct container
 volumes:
     mariadb_vol:
       driver: local
