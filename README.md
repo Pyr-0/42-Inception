@@ -435,9 +435,6 @@ __Installation:__
 	curl
 ```
 
-### <u>How to Test your Wordpress container </u>
-
-
 
 <br>
 
